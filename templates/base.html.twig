@@ -3,7 +3,12 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+{% block stylesheets %}
+<!-- Bootstrap -->
+  <link href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+  <!-- Custom styles for this template -->
+<link href="{{ asset('css/shop-homepage.css') }}" rel="stylesheet">
+{% endblock %}
     </head>
     <body>
         {% block body %}
@@ -18,8 +23,11 @@
 	</div>
 	{% endblock %} {# footer #}
 </body>
-	{% block javascripts %}
-	{% endblock %} {# javascripts #}
-	{% block custompage_script %}
-    {% endblock %} {# custompage_scripts #}
+{% block javascripts %}
+  <!-- Bootstrap core JavaScript -->
+  <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+  <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+{% endblock %} {# javascripts #}
+{% block custompage_script %}
+{% endblock %}
 </html>

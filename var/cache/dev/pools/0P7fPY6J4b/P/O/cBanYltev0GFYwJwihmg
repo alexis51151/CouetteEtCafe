@@ -10,7 +10,7 @@ return $getExpiry ? PHP_INT_MAX : Hydrator::hydrate(
     [
         'Symfony\\Component\\Routing\\Annotation\\Route' => [
             'path' => [
-                '/region/{id}',
+                '/region/{id_region}',
             ],
             'name' => [
                 'region_announces',

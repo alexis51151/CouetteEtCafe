@@ -1,0 +1,11 @@
+bootstrap_menu:
+  menus:
+    main:
+      items:
+        home:
+          label: 'Home'
+          route: 'home'
+        regions:
+          label: 'Regions'
+          route: 'regions'
+

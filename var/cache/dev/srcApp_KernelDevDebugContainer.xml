@@ -23,6 +23,7 @@
       <parameter key="MakerBundle">Symfony\Bundle\MakerBundle\MakerBundle</parameter>
       <parameter key="WebServerBundle">Symfony\Bundle\WebServerBundle\WebServerBundle</parameter>
       <parameter key="DoctrineFixturesBundle">Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle</parameter>
+      <parameter key="BootstrapMenuBundle">Camurphy\BootstrapMenuBundle\BootstrapMenuBundle</parameter>
     </parameter>
     <parameter key="kernel.bundles_metadata" type="collection">
       <parameter key="FrameworkBundle" type="collection">
@@ -80,6 +81,10 @@
       <parameter key="DoctrineFixturesBundle" type="collection">
         <parameter key="path">/home/alexis51151/CSC4101/proj-agvoy/agvoy-app-03/vendor/doctrine/doctrine-fixtures-bundle</parameter>
         <parameter key="namespace">Doctrine\Bundle\FixturesBundle</parameter>
+      </parameter>
+      <parameter key="BootstrapMenuBundle" type="collection">
+        <parameter key="path">/home/alexis51151/CSC4101/proj-agvoy/agvoy-app-03/vendor/camurphy/bootstrap-menu-bundle</parameter>
+        <parameter key="namespace">Camurphy\BootstrapMenuBundle</parameter>
       </parameter>
     </parameter>
     <parameter key="kernel.charset">UTF-8</parameter>
@@ -292,6 +297,28 @@
       </parameter>
     </parameter>
     <parameter key="env(VAR_DUMPER_SERVER)">127.0.0.1:9912</parameter>
+    <parameter key="bootstrap_menu.menus" type="collection">
+      <parameter key="main" type="collection">
+        <parameter key="items" type="collection">
+          <parameter key="home" type="collection">
+            <parameter key="label">Home</parameter>
+            <parameter key="route">home</parameter>
+            <parameter key="is_divider">false</parameter>
+            <parameter key="route_parameters" type="collection"/>
+            <parameter key="roles" type="collection"/>
+            <parameter key="items" type="collection"/>
+          </parameter>
+          <parameter key="regions" type="collection">
+            <parameter key="label">Regions</parameter>
+            <parameter key="route">regions</parameter>
+            <parameter key="is_divider">false</parameter>
+            <parameter key="route_parameters" type="collection"/>
+            <parameter key="roles" type="collection"/>
+            <parameter key="items" type="collection"/>
+          </parameter>
+        </parameter>
+      </parameter>
+    </parameter>
     <parameter key="data_collector.templates" type="collection">
       <parameter key="data_collector.request" type="collection">
         <parameter>request</parameter>
@@ -387,6 +414,20 @@
     <service id="service_container" class="Symfony\Component\DependencyInjection\ContainerInterface" public="true" synthetic="true"/>
     <service id="EasyCorp\EasyLog\EasyLogHandler" class="EasyCorp\EasyLog\EasyLogHandler" public="false">
       <argument>/home/alexis51151/CSC4101/proj-agvoy/agvoy-app-03/var/log/dev.log</argument>
+    </service>
+    <service id="App\Controller\GetRegionsController" class="App\Controller\GetRegionsController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator.CDOTD6..App\Controller\GetRegionsController"/>
+      </call>
+    </service>
+    <service id="App\Controller\IndexPageController" class="App\Controller\IndexPageController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator.CDOTD6..App\Controller\IndexPageController"/>
+      </call>
     </service>
     <service id="App\Controller\RegionAnnouncesController" class="App\Controller\RegionAnnouncesController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
@@ -1128,7 +1169,7 @@
       <argument></argument>
     </service>
     <service id="assets._default_package" class="Symfony\Component\Asset\PathPackage" public="false">
-      <argument></argument>
+      <argument>/startbootstrap-shop-homepage-gh-pages</argument>
       <argument type="service" id="assets.empty_version_strategy"/>
       <argument type="service" id="assets.context"/>
     </service>
@@ -1526,6 +1567,8 @@
           <argument>/home/alexis51151/CSC4101/proj-agvoy/agvoy-app-03/src/Resources/WebServerBundle/translations</argument>
           <argument>/home/alexis51151/CSC4101/proj-agvoy/agvoy-app-03/vendor/doctrine/doctrine-fixtures-bundle/Resources/translations</argument>
           <argument>/home/alexis51151/CSC4101/proj-agvoy/agvoy-app-03/src/Resources/DoctrineFixturesBundle/translations</argument>
+          <argument>/home/alexis51151/CSC4101/proj-agvoy/agvoy-app-03/vendor/camurphy/bootstrap-menu-bundle/Resources/translations</argument>
+          <argument>/home/alexis51151/CSC4101/proj-agvoy/agvoy-app-03/src/Resources/BootstrapMenuBundle/translations</argument>
           <argument>/home/alexis51151/CSC4101/proj-agvoy/agvoy-app-03/src/Resources/translations</argument>
         </argument>
       </argument>
@@ -3918,6 +3961,9 @@
       <call method="addExtension">
         <argument type="service" id="twig.extension.webprofiler"/>
       </call>
+      <call method="addExtension">
+        <argument type="service" id="camurphy.bootstrap_menu.twig.menu_extension"/>
+      </call>
       <call method="addGlobal">
         <argument>app</argument>
         <argument type="service" id="twig.app_variable"/>
@@ -4023,6 +4069,14 @@
       <call method="addPath">
         <argument>/home/alexis51151/CSC4101/proj-agvoy/agvoy-app-03/vendor/symfony/debug-bundle/Resources/views</argument>
         <argument>!Debug</argument>
+      </call>
+      <call method="addPath">
+        <argument>/home/alexis51151/CSC4101/proj-agvoy/agvoy-app-03/vendor/camurphy/bootstrap-menu-bundle/Resources/views</argument>
+        <argument>BootstrapMenu</argument>
+      </call>
+      <call method="addPath">
+        <argument>/home/alexis51151/CSC4101/proj-agvoy/agvoy-app-03/vendor/camurphy/bootstrap-menu-bundle/Resources/views</argument>
+        <argument>!BootstrapMenu</argument>
       </call>
       <call method="addPath">
         <argument>/home/alexis51151/CSC4101/proj-agvoy/agvoy-app-03/templates</argument>
@@ -4529,6 +4583,16 @@
         </argument>
       </call>
     </service>
+    <service id="camurphy.bootstrap_menu.twig.menu_extension" class="Camurphy\BootstrapMenuBundle\Twig\Extension\MenuExtension" public="false">
+      <tag name="twig.extension"/>
+      <argument>%bootstrap_menu.menus%</argument>
+    </service>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\GetRegionsController" class="App\Controller\GetRegionsController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\GetRegionsController" class="App\Controller\GetRegionsController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\GetRegionsController" class="App\Controller\GetRegionsController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\IndexPageController" class="App\Controller\IndexPageController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\IndexPageController" class="App\Controller\IndexPageController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\IndexPageController" class="App\Controller\IndexPageController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\RegionAnnouncesController" class="App\Controller\RegionAnnouncesController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\RegionAnnouncesController" class="App\Controller\RegionAnnouncesController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\RegionAnnouncesController" class="App\Controller\RegionAnnouncesController" autowire="true" autoconfigure="true" abstract="true"/>
@@ -4986,6 +5050,18 @@
         <argument key="session" type="service" id="session" on-invalid="ignore"/>
         <argument key="twig" type="service" id="twig" on-invalid="ignore"/>
       </argument>
+    </service>
+    <service id=".service_locator.CDOTD6..App\Controller\GetRegionsController" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator_context" id="App\Controller\GetRegionsController"/>
+      <argument>App\Controller\GetRegionsController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.CDOTD6." method="withContext"/>
+    </service>
+    <service id=".service_locator.CDOTD6..App\Controller\IndexPageController" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator_context" id="App\Controller\IndexPageController"/>
+      <argument>App\Controller\IndexPageController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.CDOTD6." method="withContext"/>
     </service>
     <service id=".service_locator.CDOTD6..App\Controller\RegionAnnouncesController" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator_context" id="App\Controller\RegionAnnouncesController"/>

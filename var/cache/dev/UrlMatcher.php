@@ -13,6 +13,8 @@ return [
         '/_profiler/search_bar' => [[['_route' => '_profiler_search_bar', '_controller' => 'web_profiler.controller.profiler::searchBarAction'], null, null, null, false, false, null]],
         '/_profiler/phpinfo' => [[['_route' => '_profiler_phpinfo', '_controller' => 'web_profiler.controller.profiler::phpinfoAction'], null, null, null, false, false, null]],
         '/_profiler/open' => [[['_route' => '_profiler_open_file', '_controller' => 'web_profiler.controller.profiler::openAction'], null, null, null, false, false, null]],
+        '/regions' => [[['_route' => 'regions', '_controller' => 'App\\Controller\\GetRegionsController::index'], null, null, null, false, false, null]],
+        '/' => [[['_route' => 'home', '_controller' => 'App\\Controller\\IndexPageController::index'], null, null, null, false, false, null]],
     ],
     [ // $regexpList
         0 => '{^(?'
@@ -45,7 +47,7 @@ return [
         136 => [[['_route' => '_profiler_exception', '_controller' => 'web_profiler.controller.exception::showAction'], ['token'], null, null, false, false, null]],
         149 => [[['_route' => '_profiler_exception_css', '_controller' => 'web_profiler.controller.exception::cssAction'], ['token'], null, null, false, false, null]],
         159 => [[['_route' => '_profiler', '_controller' => 'web_profiler.controller.profiler::panelAction'], ['token'], null, null, false, true, null]],
-        188 => [[['_route' => 'region_announces', '_controller' => 'App\\Controller\\RegionAnnouncesController::index'], ['id'], null, null, false, true, null]],
+        188 => [[['_route' => 'region_announces', '_controller' => 'App\\Controller\\RegionAnnouncesController::index'], ['id_region'], null, null, false, true, null]],
         208 => [
             [['_route' => 'room', '_controller' => 'App\\Controller\\RoomController::index'], ['id_room'], null, null, false, true, null],
             [null, null, null, null, false, false, 0],

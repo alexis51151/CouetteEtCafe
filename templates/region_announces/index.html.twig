@@ -1,9 +1,9 @@
-{% extends 'base.html.twig' %}
+{% extends 'baselayout.html.twig' %}
 
 {% block title %}Liste d'annonces{% endblock %}
 
 {% block main %}
-    <h1>Annonces</h1>
+    <h1 class="p-3 text-center">Annonces en {{region.name}}</h1>
 
     <table class="table">
         <thead>
@@ -14,7 +14,7 @@
         <tbody>
         {% for room in rooms %}
             <tr>
-                <td>{{ room.summary }}</td> 				
+                <td><a href="/room/{{room.id}}">{{ room.summary }}</a></td> 				
             </tr>
         {% else %}
             <tr>

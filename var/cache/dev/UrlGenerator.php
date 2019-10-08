@@ -15,6 +15,8 @@ return [
     '_profiler_router' => [['token'], ['_controller' => 'web_profiler.controller.router::panelAction'], [], [['text', '/router'], ['variable', '/', '[^/]++', 'token', true], ['text', '/_profiler']], [], []],
     '_profiler_exception' => [['token'], ['_controller' => 'web_profiler.controller.exception::showAction'], [], [['text', '/exception'], ['variable', '/', '[^/]++', 'token', true], ['text', '/_profiler']], [], []],
     '_profiler_exception_css' => [['token'], ['_controller' => 'web_profiler.controller.exception::cssAction'], [], [['text', '/exception.css'], ['variable', '/', '[^/]++', 'token', true], ['text', '/_profiler']], [], []],
-    'region_announces' => [['id'], ['_controller' => 'App\\Controller\\RegionAnnouncesController::index'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/region']], [], []],
+    'regions' => [[], ['_controller' => 'App\\Controller\\GetRegionsController::index'], [], [['text', '/regions']], [], []],
+    'home' => [[], ['_controller' => 'App\\Controller\\IndexPageController::index'], [], [['text', '/']], [], []],
+    'region_announces' => [['id_region'], ['_controller' => 'App\\Controller\\RegionAnnouncesController::index'], [], [['variable', '/', '[^/]++', 'id_region', true], ['text', '/region']], [], []],
     'room' => [['id_room'], ['_controller' => 'App\\Controller\\RoomController::index'], [], [['variable', '/', '[^/]++', 'id_room', true], ['text', '/room']], [], []],
 ];

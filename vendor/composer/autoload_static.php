@@ -140,6 +140,10 @@ class ComposerStaticInit4e980e1b1a8f18d016a4a64f43c4fc3b
             'Doctrine\\Bundle\\DoctrineCacheBundle\\' => 36,
             'Doctrine\\Bundle\\DoctrineBundle\\' => 31,
         ),
+        'C' => 
+        array (
+            'Camurphy\\BootstrapMenuBundle\\' => 29,
+        ),
         'A' => 
         array (
             'App\\Tests\\' => 10,
@@ -520,6 +524,10 @@ class ComposerStaticInit4e980e1b1a8f18d016a4a64f43c4fc3b
         'Doctrine\\Bundle\\DoctrineBundle\\' => 
         array (
             0 => __DIR__ . '/..' . '/doctrine/doctrine-bundle',
+        ),
+        'Camurphy\\BootstrapMenuBundle\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/camurphy/bootstrap-menu-bundle',
         ),
         'App\\Tests\\' => 
         array (
