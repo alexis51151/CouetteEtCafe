@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste d'annonces{% endblock %}
+
+{% block main %}
+    <h1>Annonces</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Résumé</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for room in rooms %}
+            <tr>
+                <td>{{ room.summary }}</td> 				
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">Pas d'annonce pour cette région.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    
+{% endblock %}

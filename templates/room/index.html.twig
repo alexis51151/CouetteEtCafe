@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ room.summary }}{% endblock %}
+
+{% block main %}
+    <h1>Annonces</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Description</th>
+                <th>Capacité</th>
+                <th>Superficie</th>
+                <th>Prix</th>
+                <th>Région</th>
+                <th>Adresse</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ room.description }}</td> 		
+                <td>{{ room.capacity }}</td> 			
+                <td>{{ room.superficy }}</td> 	
+                <td>{{ room.price }}</td> 
+                <td>{{ room.region }}</td> 		
+                <td>{{ room.address }}</td> 
+            </tr>
+        </tbody>
+    </table>
+    
+{% endblock %}
