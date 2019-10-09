@@ -5,11 +5,17 @@
  */
 body {
   padding-top: 56px;
+  
 }
 
 .card {
         margin: 0 auto; /* Added */
         float: none; /* Added */
         margin-bottom: 10px; /* Added */
-	margin-left : 5 px;
+		margin-left : 5 px;
 }
+
+.navbar {
+
+
+
