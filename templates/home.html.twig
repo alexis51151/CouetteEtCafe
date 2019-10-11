@@ -1,0 +1,22 @@
+{# templates/home.html.twig #}
+
+{# Template de la page d'accueil de l'application #}
+
+{% extends "baselayout.html.twig" %}
+{% block head %}
+<style>
+body {
+background-image: url('imgs/home.jpg') ;
+height:100%;
+background-size: cover;
+}
+
+</style>
+{% endblock %}
+{% block title %}Bienvenue !{% endblock %}
+{% block main %}
+
+<h1 class="p-3 text-center">Bienvenue sur CouetteEtCafé</h1>
+<p>{{ welcome }}</p>
+
+{% endblock %} {# main #}

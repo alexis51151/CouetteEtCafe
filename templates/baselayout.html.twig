@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title class="text-center">{% block title %}Bienvenue !{% endblock %}</title>
+{% block stylesheets %}
+<!-- Bootstrap -->
+  <link href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+  <!-- Custom styles for this template -->
+<link href="{{ asset('css/shop-homepage.css') }}" rel="stylesheet">
+{% endblock %}
+{% block head %}
+{% endblock %}
+    </head>
+    <body>
+        {% block body %}
+	{% block menu %}
+	<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+  <a class="navbar-brand" href="#">CouetteEtCafé</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+          aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+    <ul class="navbar-nav mr-auto">
+      {{ render_bootstrap_menu('main') }}
+    </ul>
+  </div>
+</nav>
+	{% endblock %} {# menu #}
+
+    {% block main %}MAIN{% endblock %} {# main #}
+
+	    {% endblock %} {# body #}
+
+	{% block footer %}
+	<div >
+	</div>
+	{% endblock %} {# footer #}
+</body>
+{% block javascripts %}
+  <!-- Bootstrap core JavaScript -->
+  <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+  <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+{% endblock %} {# javascripts #}
+{% block custompage_script %}
+{% endblock %}
+</html>
+
