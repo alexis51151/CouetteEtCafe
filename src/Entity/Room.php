@@ -58,9 +58,15 @@ class Room
      */
     private $region;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Commentaire", mappedBy="room")
+     */
+    private $commentaire;
+
     public function __construct()
     {
         $this->region = new ArrayCollection();
+        $this->commentaire = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -180,6 +186,37 @@ class Room
     
     public function __toString() {
         return $this->summary. ":" . $this->description . ".";
+    }
+
+    /**
+     * @return Collection|Commentaire[]
+     */
+    public function getCommentaire(): Collection
+    {
+        return $this->commentaire;
+    }
+
+    public function addCommentaire(Commentaire $commentaire): self
+    {
+        if (!$this->commentaire->contains($commentaire)) {
+            $this->commentaire[] = $commentaire;
+            $commentaire->setRoom($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentaire(Commentaire $commentaire): self
+    {
+        if ($this->commentaire->contains($commentaire)) {
+            $this->commentaire->removeElement($commentaire);
+            // set the owning side to null (unless already changed)
+            if ($commentaire->getRoom() === $this) {
+                $commentaire->setRoom(null);
+            }
+        }
+
+        return $this;
     }
     
 }
