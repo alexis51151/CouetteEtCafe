@@ -73,7 +73,7 @@ class RoomController extends AbstractController
         $commentaires = $room->getCommentaires();
         $nb_commentaires = $commentaires->count();
         return $this->render('room/show.html.twig', [
-            'room' => $room, 'sous_titre' => $sous_titre,"nb_commentaires" => $nb_commentaires, "commentaires" => $commentaires,
+            'room' => $room, 'sous_titre' => $sous_titre,"nb_commentaires" => $nb_commentaires, "commentaires" => $commentaires,$form->createView(),
         ]);
     }
 

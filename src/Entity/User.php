@@ -58,7 +58,12 @@ class User implements UserInterface
     }
     public function __toString()
     {
-        return $this->client->getfamilyName();
+        if (is_null($this->client)){
+            return("None");
+        }
+        else {
+            return $this->client->getfamilyName();
+        }
     }
     public function getId(): ?int
     {
