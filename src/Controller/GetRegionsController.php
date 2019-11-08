@@ -17,7 +17,7 @@ class GetRegionsController extends AbstractController
         $regions = $em->getRepository(Region::class)->findAll();
         
         return $this->render('get_regions/index.html.twig', [
-            'regions' => $regions,
+            'regions' => $regions, 'sous_titre' => 'Découvrez nos magnifiques régions',
         ]);
     }
 }

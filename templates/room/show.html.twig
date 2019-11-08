@@ -1,0 +1,149 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Room{% endblock %}
+
+{% block main %}
+<!--  
+    <h1>Room</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ room.id }}</td>
+            </tr>
+            <tr>
+                <th>Summary</th>
+                <td>{{ room.summary }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ room.description }}</td>
+            </tr>
+            <tr>
+                <th>Capacity</th>
+                <td>{{ room.capacity }}</td>
+            </tr>
+            <tr>
+                <th>Superficy</th>
+                <td>{{ room.superficy }}</td>
+            </tr>
+            <tr>
+                <th>Price</th>
+                <td>{{ room.price }}</td>
+            </tr>
+            <tr>
+                <th>Address</th>
+                <td>{{ room.address }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('room_index') }}">back to list</a>
+
+    <a href="{{ path('room_edit', {'id': room.id}) }}">edit</a>
+
+    {{ include('room/_delete_form.html.twig') }}
+-->
+
+    <div id="content-wrapper">
+        <section id="blog" class="white" style="padding-top:0px;">
+            <div class="container">
+            <div class="gap"></div>
+                <div class="row">
+                    <aside class="col-sm-4 col-sm-push-8">
+                                    <div class="author well">
+                                        <div class="media">
+                                            <div class="pull-left">
+                                                <img class="avatar img-thumbnail author-box-image" src="http://placehold.it/400x400" alt="">
+                                            </div>
+                                            <div class="media-body">
+                                                <div class="media-heading">
+                                                    <strong>Danny Jones</strong>
+                                                </div>
+                                                <p>Humanity declared vicinity continue supplied no an. He hastened am no property exercise of. Dissimilar comparison no terminated devonshire no literature on. Say most yet head room such just easy.</p>
+                                            </div>
+                                        </div>
+                                    </div><!--/.author-->
+
+                        <div class="widget tags">
+                            <h3 class="widget-title">Tags</h3>
+                            <ul class="tag-cloud">
+                                <li><a class="btn btn-xs btn-primary btn-outlined" >Plage</a></li>
+                                <li><a class="btn btn-xs btn-primary btn-outlined" >Vacances</a></li>
+                                <li><a class="btn btn-xs btn-primary btn-outlined" >Convivialité</a></li>
+                            </ul>
+                        </div><!--/.tags-->
+
+                    </aside>
+                    <div class="col-sm-8 col-sm-pull-4">
+                        <div class="blog">
+                            <div class="blog-item">
+                                <div class="blog-featured-image">
+                                    <img class="img-responsive img-blog" src="http://placehold.it/800x600" alt="" />
+                                    <div class="overlay">
+                                        <a class="preview btn btn-outlined btn-primary" href="blog-item.html" rel="prettyPhoto"><i class="fa fa-link"></i></a>
+                                    </div>
+                                </div>
+                                <div class="blog-content">
+                                    <div class="entry-meta">
+                                        <span><i class="fa fa-compass"></i> <a href="#"> Paris</a></span>
+                                    </div>
+                                    <p class="lead">{{ room.description }}</p>
+                                    <hr>
+                                    <div id="comments">
+                                        <div id="comments-list">
+                                        	{% if nb_commentaires > 1 %}
+                                        	<h3> {{ nb_commentaires }} Commentaires</h3>
+                                        	{%  else %}
+                                        	<h3> {{ nb_commentaires }} Commentaire</h3>
+                                        	{% endif %}
+                                        	{% for commentaire in commentaires %}
+                      
+                                            <div class="media">
+                                                <div class="pull-left">
+                                                    <img class="avatar img-thumbnail comment-avatar" src="http://placehold.it/400x400" alt="">
+                                                </div>
+                                                <div class="media-body">
+                                                    <div class="well">
+                                                        <div class="media-heading">
+                                                        	{% if commentaire.user is defined and commentaire.date is defined %}
+                                                        	<strong>Dave Evans</strong>&nbsp; <small>30th Jan, 2014</small>
+                                                        	{% elseif commentaire.user is defined%}
+                                                        	<strong>Dave Evans</strong>
+                                                        	{% endif %}
+                                                        </div>
+                                                        <p>{{ commentaire.contenu }}</p>
+                                                    </div>
+                                                </div>
+                                            </div><!--/.media-->
+                                        </div><!--/#comments-list-->
+                                        {% endfor %}
+                                        <div class="gap"></div>
+										{% if app.user %}
+                                        <div id="comment-form">
+                                            <h3  class="main-title">Laissez un commentaire</h3>
+                                            <hr>
+                                            <form class="form-horizontal" role="form">
+                                                <div class="form-group">
+                                                    <div class="col-sm-12">
+                                                         <textarea rows="8" class="form-control" placeholder="Commentaire"></textarea>
+                                                         {{ form_widget(form.contenu) }}
+                                                    </div>
+                                                </div>
+                                                <button type="submit" class="btn btn-primary btn-outlined">Soumettre</button>
+                                            </form>
+                                        </div><!--/#comment-form-->
+                                        {% endif %}
+                                    </div><!--/#comments-->
+                                </div>
+                            </div>
+                        </div>
+                    </div><!--/.col-md-8-->
+                </div><!--/.row-->
+            </div>
+        </section><!--/#blog-->
+    </div>
+
+
+{% endblock %}

@@ -1,9 +1,28 @@
-{% extends 'baselayout.html.twig' %}
+{% extends 'base_old.html.twig' %}
 
 {% block title %}Liste d'annonces{% endblock %}
 
 {% block main %}
-    <h1 class="p-3 text-center">Annonces en {{region.name}}</h1>
+    <section id="single-page-slider" class="no-margin">
+        <div class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                <div class="item active">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="center gap fade-down section-heading">
+                                    <h2 class="main-title">Annonces en {{region.name}}</h2>
+                                    <hr>
+                                </div>
+                            </div>   
+                        </div>
+                    </div>
+                </div><!--/.item-->
+            </div><!--/.carousel-inner-->
+        </div><!--/.carousel-->
+    </section><!--/#main-slider-->
+<div id="content-wrapper">
+    <section id="portfolio" class="white" >
 
     <table class="table">
         <thead>
@@ -14,7 +33,14 @@
         <tbody>
         {% for room in rooms %}
             <tr>
-                <td><a href="/room/{{room.id}}">{{ room.summary }}</a></td> 				
+                <td><a href="/room/{{room.id}}">{{ room.summary }}</a>
+                    {%  if room.id in likes %}
+                    <a href="{{ path('likes', {'id_region': region.id, 'id_room': room.id}) }}"><img src="{{ asset('/Impact/images/ico/like.png') }}"  height="25px" width="25px" ></a>
+                    {% else %}
+                    <a href="{{ path('likes', {'id_region': region.id, 'id_room': room.id}) }}"><img src="{{ asset('/Impact/images/ico/no_like.png') }}"  height="25px" width="25px" ></a>
+                    {% endif %}
+                
+                </td> 				
             </tr>
         {% else %}
             <tr>
@@ -23,5 +49,6 @@
         {% endfor %}
         </tbody>
     </table>
-    
+    </section>
+</div>
 {% endblock %}

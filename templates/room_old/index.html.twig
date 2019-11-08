@@ -1,0 +1,48 @@
+{% extends 'baselayout.html.twig' %}
+
+{% block title %}{{ room.summary }}{% endblock %}
+
+{% block main %}
+    <section id="single-page-slider" class="no-margin">
+        <div class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                <div class="item active">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="center gap fade-down section-heading">
+                                    <h2 class="main-title">{{ room.summary}}</h2>
+                                    <hr>
+                                </div>
+                            </div>   
+                        </div>
+                    </div>
+                </div><!--/.item-->
+            </div><!--/.carousel-inner-->
+        </div><!--/.carousel-->
+    </section><!--/#main-slider-->
+<div id="content-wrapper">
+    <section id="portfolio" class="white" >
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Description</th>
+                <th>Capacité</th>
+                <th>Superficie</th>
+                <th>Prix</th>
+                <th>Adresse</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ room.description }}</td> 		
+                <td>{{ room.capacity }}</td> 			
+                <td>{{ room.superficy }}</td> 	
+                <td>{{ room.price }}</td> 
+                <td>{{ room.address }}</td> 
+            </tr>
+        </tbody>
+    </table>
+    </section>
+</div>
+{% endblock %}

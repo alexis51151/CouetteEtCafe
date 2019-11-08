@@ -1,0 +1,16 @@
+{% extends 'baselayout.html.twig' %}
+
+{% block title %}New Region{% endblock %}
+
+{% block main %}
+    <h1>Create new Region</h1>
+<div id="content-wrapper">
+        <section id="portfolio" class="white" >
+       		<div class="container">
+
+    {{ include('region/_form.html.twig') }}
+    <a href="{{ path('region_index') }}">back to list</a>
+    		</div>
+    	</section>
+</div>
+{% endblock %}

@@ -1,29 +1,47 @@
-{% extends 'baselayout.html.twig' %}
+{% extends 'base.html.twig' %}
 
-{% block title %}{{ room.summary }}{% endblock %}
+{% block title %}Room index{% endblock %}
 
 {% block main %}
-    <h1 class="p-3 text-center">{{ room.summary}}</h1>
+
+    <h1>Room index</h1>
 
     <table class="table">
         <thead>
             <tr>
+                <th>Id</th>
+                <th>Summary</th>
                 <th>Description</th>
-                <th>Capacité</th>
-                <th>Superficie</th>
-                <th>Prix</th>
-                <th>Adresse</th>
+                <th>Capacity</th>
+                <th>Superficy</th>
+                <th>Price</th>
+                <th>Address</th>
+                <th>actions</th>
             </tr>
         </thead>
         <tbody>
+        {% for room in rooms %}
             <tr>
-                <td>{{ room.description }}</td> 		
-                <td>{{ room.capacity }}</td> 			
-                <td>{{ room.superficy }}</td> 	
-                <td>{{ room.price }}</td> 
-                <td>{{ room.address }}</td> 
+                <td>{{ room.id }}</td>
+                <td>{{ room.summary }}</td>
+                <td>{{ room.description }}</td>
+                <td>{{ room.capacity }}</td>
+                <td>{{ room.superficy }}</td>
+                <td>{{ room.price }}</td>
+                <td>{{ room.address }}</td>
+                <td>
+                    <a href="{{ path('room_show', {'id': room.id}) }}">show</a>
+                    <a href="{{ path('room_edit', {'id': room.id}) }}">edit</a>                    
+                </td>
             </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
         </tbody>
-    </table>
-    
+    </table> 
+    <a href="{{ path('room_new') }}">Create new</a> 
+
+
 {% endblock %}

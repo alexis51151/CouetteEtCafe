@@ -3,9 +3,28 @@ bootstrap_menu:
     main:
       items:
         home:
-          label: 'Home'
+          label: 'Accueil'
           route: 'home'
         regions:
           label: 'Regions'
           route: 'regions'
-
+    anonymousaccount:
+      items:
+        account:
+          label: 'Account'
+          items:
+            login:
+              label: 'Login'
+              route: 'app_login'
+            register:
+              label: 'Register'
+              route: 'app_register'
+    account:
+      items:
+        account:
+          label: 'Account'
+          items:
+            logout:
+              label: 'Logout'
+              route: 'app_logout'
+              roles: [ 'ROLE_USER' ]

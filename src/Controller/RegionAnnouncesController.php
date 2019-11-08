@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 class RegionAnnouncesController extends AbstractController
 {
     /**
-     * @Route("/region/{id_region}", name="region_announces")
+     * @Route("/regions/{id_region}", name="region_announces")
      */
     
     public function index(string $id_region)
@@ -20,8 +20,9 @@ class RegionAnnouncesController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $region = $em->getRepository(Region::class)->find($id_region);
         $rooms = $em->getRepository(Room::class)->findAll();
+        $likes = $this->get('session')->get('likes');
         return $this->render('region_announces/index.html.twig', [
-            'rooms' => $rooms, 'region' => $region,
+            'rooms' => $rooms, 'region' => $region,'likes' => $likes,
         ]);
     }
 }

@@ -12,8 +12,9 @@ class IndexPageController extends AbstractController
      */
     public function index()
     {
-        return $this->render('home.html.twig', [
-            'welcome' => 'A changer plus tard',
+        return $this->render('home2.html.twig', [
+            'welcome' => 'A changer plus tard', 'sous_titre' => 'Nos offres phares',
         ]);
     }
+        
 }
