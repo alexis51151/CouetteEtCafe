@@ -26,6 +26,8 @@ return [
         '/room/new' => [[['_route' => 'room_new', '_controller' => 'App\\Controller\\RoomController::new'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
         '/login' => [[['_route' => 'app_login', '_controller' => 'App\\Controller\\SecurityController::login'], null, null, null, false, false, null]],
         '/logout' => [[['_route' => 'app_logout', '_controller' => 'App\\Controller\\SecurityController::logout'], null, null, null, false, false, null]],
+        '/unavailabilities' => [[['_route' => 'unavailabilities_index', '_controller' => 'App\\Controller\\UnavailabilitiesController::index'], null, ['GET' => 0], null, true, false, null]],
+        '/unavailabilities/new' => [[['_route' => 'unavailabilities_new', '_controller' => 'App\\Controller\\UnavailabilitiesController::new'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
     ],
     [ // $regexpList
         0 => '{^(?'
@@ -74,6 +76,11 @@ return [
                         .'|(*:409)'
                     .')'
                 .')'
+                .'|/unavailabilities/([^/]++)(?'
+                    .'|(*:448)'
+                    .'|/edit(*:461)'
+                    .'|(*:469)'
+                .')'
             .')/?$}sDu',
     ],
     [ // $dynamicRoutes
@@ -97,8 +104,11 @@ return [
         362 => [[['_route' => 'room_show', '_controller' => 'App\\Controller\\RoomController::show'], ['id'], ['GET' => 0, 'POST' => 1], null, false, true, null]],
         378 => [[['_route' => 'room_edit', '_controller' => 'App\\Controller\\RoomController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
         400 => [[['_route' => 'likes', '_controller' => 'App\\Controller\\RoomController::addLike'], ['id_room', 'id_region'], null, null, false, false, null]],
-        409 => [
-            [['_route' => 'room_delete', '_controller' => 'App\\Controller\\RoomController::delete'], ['id'], ['DELETE' => 0], null, false, true, null],
+        409 => [[['_route' => 'room_delete', '_controller' => 'App\\Controller\\RoomController::delete'], ['id'], ['DELETE' => 0], null, false, true, null]],
+        448 => [[['_route' => 'unavailabilities_show', '_controller' => 'App\\Controller\\UnavailabilitiesController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        461 => [[['_route' => 'unavailabilities_edit', '_controller' => 'App\\Controller\\UnavailabilitiesController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        469 => [
+            [['_route' => 'unavailabilities_delete', '_controller' => 'App\\Controller\\UnavailabilitiesController::delete'], ['id'], ['DELETE' => 0], null, false, true, null],
             [null, null, null, null, false, false, 0],
         ],
     ],

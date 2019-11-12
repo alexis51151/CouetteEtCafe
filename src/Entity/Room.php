@@ -68,10 +68,16 @@ class Room
      */
     private $commentaires;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Unavailabilities", mappedBy="Room")
+     */
+    private $unavailabilities;
+
     public function __construct()
     {
         $this->region = new ArrayCollection();
         $this->commentaires = new ArrayCollection();
+        $this->unavailabilities = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -235,6 +241,37 @@ class Room
             // set the owning side to null (unless already changed)
             if ($commentaire->getRoom() === $this) {
                 $commentaire->setRoom(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Unavailabilities[]
+     */
+    public function getUnavailabilities(): Collection
+    {
+        return $this->unavailabilities;
+    }
+
+    public function addUnavailability(Unavailabilities $unavailability): self
+    {
+        if (!$this->unavailabilities->contains($unavailability)) {
+            $this->unavailabilities[] = $unavailability;
+            $unavailability->setRoom($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUnavailability(Unavailabilities $unavailability): self
+    {
+        if ($this->unavailabilities->contains($unavailability)) {
+            $this->unavailabilities->removeElement($unavailability);
+            // set the owning side to null (unless already changed)
+            if ($unavailability->getRoom() === $this) {
+                $unavailability->setRoom(null);
             }
         }
 

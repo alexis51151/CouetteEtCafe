@@ -13,7 +13,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-
+use Symfony\Component\Security\Core\Security;
+use \DateTime;
 /**
  * @Route("/room")
  */
@@ -37,12 +38,12 @@ class RoomController extends AbstractController
         $room = new Room();
         $form = $this->createForm(RoomType::class, $room);
         $form->handleRequest($request);
-
+        
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($room);
             $entityManager->flush();
-
+            $this->get('session')->getFlashBag()->add('message', 'Commentaire bien publié');
             return $this->redirectToRoute('room_index');
         }
 
@@ -61,9 +62,16 @@ class RoomController extends AbstractController
         # Partie formulaire pour les commentaires en fin de page
         $new_commentaire = new Commentaire();
         $form = $this->createForm(CommentaireType::class, $new_commentaire);
+        $user = $this->getUser();
+        $new_commentaire->setUser($user);
+        $new_commentaire->setRoom($room);
+        $new_commentaire->setDate(new \DateTime());
         $form->handleRequest($request);
+        
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($new_commentaire);
+            $entityManager->flush();
             
             return $this->redirectToRoute('room_show');
         }
@@ -73,7 +81,7 @@ class RoomController extends AbstractController
         $commentaires = $room->getCommentaires();
         $nb_commentaires = $commentaires->count();
         return $this->render('room/show.html.twig', [
-            'room' => $room, 'sous_titre' => $sous_titre,"nb_commentaires" => $nb_commentaires, "commentaires" => $commentaires,$form->createView(),
+            'room' => $room, 'sous_titre' => $sous_titre,"nb_commentaires" => $nb_commentaires, "commentaires" => $commentaires, 'form' => $form->createView(),
         ]);
     }
 

@@ -22,7 +22,7 @@
     "require-dev": {
         "ext-phar": "*",
         "doctrine/annotations": "^1.0",
-        "phpunit/phpunit": "^7.5.15",
+        "phpunit/phpunit": "^7.5.16 || ^8.4",
         "zendframework/zend-coding-standard": "^1.0",
         "zendframework/zend-stdlib": "^2.7 || ^3.0"
     },
@@ -45,8 +45,8 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "3.3.x-dev",
-            "dev-develop": "3.4.x-dev"
+            "dev-master": "3.4.x-dev",
+            "dev-develop": "3.5.x-dev"
         }
     },
     "scripts": {

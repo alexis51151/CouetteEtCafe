@@ -42,4 +42,9 @@ return [
     'likes' => [['id_room', 'id_region'], ['_controller' => 'App\\Controller\\RoomController::addLike'], [], [['text', '/likes'], ['variable', '/', '[^/]++', 'id_region', true], ['variable', '/', '[^/]++', 'id_room', true], ['text', '/room']], [], []],
     'app_login' => [[], ['_controller' => 'App\\Controller\\SecurityController::login'], [], [['text', '/login']], [], []],
     'app_logout' => [[], ['_controller' => 'App\\Controller\\SecurityController::logout'], [], [['text', '/logout']], [], []],
+    'unavailabilities_index' => [[], ['_controller' => 'App\\Controller\\UnavailabilitiesController::index'], [], [['text', '/unavailabilities/']], [], []],
+    'unavailabilities_new' => [[], ['_controller' => 'App\\Controller\\UnavailabilitiesController::new'], [], [['text', '/unavailabilities/new']], [], []],
+    'unavailabilities_show' => [['id'], ['_controller' => 'App\\Controller\\UnavailabilitiesController::show'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/unavailabilities']], [], []],
+    'unavailabilities_edit' => [['id'], ['_controller' => 'App\\Controller\\UnavailabilitiesController::edit'], [], [['text', '/edit'], ['variable', '/', '[^/]++', 'id', true], ['text', '/unavailabilities']], [], []],
+    'unavailabilities_delete' => [['id'], ['_controller' => 'App\\Controller\\UnavailabilitiesController::delete'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/unavailabilities']], [], []],
 ];

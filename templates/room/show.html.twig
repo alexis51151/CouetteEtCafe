@@ -127,11 +127,11 @@
                                             <form class="form-horizontal" role="form">
                                                 <div class="form-group">
                                                     <div class="col-sm-12">
-                                                         <textarea rows="8" class="form-control" placeholder="Commentaire"></textarea>
-                                                         {{ form_widget(form.contenu) }}
+{#                                                          <textarea rows="8" class="form-control" placeholder="Commentaire"></textarea>#}
+                                                         {{  form_widget(form.contenu) }}
                                                     </div>
                                                 </div>
-                                                <button type="submit" class="btn btn-primary btn-outlined">Soumettre</button>
+                                                <button type="submit" class="btn btn-primary btn-outlined">{{ button_label|default('Soumettre') }}</button>                                                
                                             </form>
                                         </div><!--/#comment-form-->
                                         {% endif %}
