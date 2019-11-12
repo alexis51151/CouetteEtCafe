@@ -80,7 +80,11 @@
                         <div class="blog">
                             <div class="blog-item">
                                 <div class="blog-featured-image">
+                                    {%  if room.ImageName is not defined %}
                                     <img class="img-responsive img-blog" src="http://placehold.it/800x600" alt="" />
+                                    {% else %}
+                                    <img class="img-responsive img-blog" src="{{ vich_uploader_asset(room, 'imageFile') }}" alt="" />
+                                    {% endif %}
                                     <div class="overlay">
                                         <a class="preview btn btn-outlined btn-primary" href="blog-item.html" rel="prettyPhoto"><i class="fa fa-link"></i></a>
                                     </div>
