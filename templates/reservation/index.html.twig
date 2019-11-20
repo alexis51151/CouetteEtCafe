@@ -9,32 +9,68 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
+                <th>Chambre</th>
                 <th>Date_debut</th>
                 <th>Date_fin</th>
                 <th>actions</th>
             </tr>
         </thead>
         <tbody>
-        {% for reservation in reservations %}
-            <tr>
-                <td>{{ reservation.id }}</td>
-                <td>{{ reservation.dateDebut ? reservation.dateDebut|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ reservation.dateFin ? reservation.dateFin|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('reservation_show', {'id': reservation.id}) }}">show</a>
-                    <a href="{{ path('reservation_edit', {'id': reservation.id}) }}">edit</a>
-                </td>
-            </tr>
+        {% if app.user == null %}
+        	    <tr>
+                    <td colspan="4">no records found</td>
+                </tr>
+        	
+        {% elseif is_granted('ROLE_ADMIN') %}
+            {% for reservation in reservations %}
+                <tr>
+                    <td>{{ reservation.room.summary }}</td>
+                    <td>{{ reservation.dateDebut ? reservation.dateDebut|date('Y-m-d H:i:s') : '' }}</td>
+                    <td>{{ reservation.dateFin ? reservation.dateFin|date('Y-m-d H:i:s') : '' }}</td>
+                    <td>
+                        <a href="{{ path('reservation_show', {'id': reservation.id}) }}">voir</a>
+                        <a href="{{ path('reservation_edit', {'id': reservation.id}) }}">modifier</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4">no records found</td>
+                </tr>
+            {% endfor %}
         {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
-        {% endfor %}
+            {% for reservation in reservations %}
+            	{% if reservation.room.owner.user == app.user %}
+                    <tr>
+                        <td>{{ reservation.room.summary }}</td>
+                        <td>{{ reservation.dateDebut ? reservation.dateDebut|date('Y-m-d H:i:s') : '' }}</td>
+                        <td>{{ reservation.dateFin ? reservation.dateFin|date('Y-m-d H:i:s') : '' }}</td>
+                        <td>
+                            <a href="{{ path('reservation_show', {'id': reservation.id}) }}">voir</a>
+                            <a href="{{ path('reservation_edit', {'id': reservation.id}) }}">modifier</a>
+                        </td>
+                    </tr> 
+                 {% elseif reservation.client.user == app.user %}     
+                    <tr>
+                        <td>{{ reservation.room.summary }}</td>
+                        <td>{{ reservation.dateDebut ? reservation.dateDebut|date('Y-m-d H:i:s') : '' }}</td>
+                        <td>{{ reservation.dateFin ? reservation.dateFin|date('Y-m-d H:i:s') : '' }}</td>
+                        <td>
+                            <a href="{{ path('reservation_show', {'id': reservation.id}) }}">voir</a>
+                        </td>
+                    </tr> 
+                           
+                {% endif %}
+            {% else %}
+                <tr>
+                    <td colspan="4">no records found</td>
+                </tr>
+            {% endfor %}
+        	
+        {% endif %}
         </tbody>
     </table>
 
-    <a href="{{ path('reservation_new') }}">Create new</a>
+{#     <a href="{{ path('reservation_new') }}">Create new</a>#}
     </section>
 </div>
 {% endblock %}

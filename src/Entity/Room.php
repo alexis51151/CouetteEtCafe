@@ -64,11 +64,6 @@ class Room
     private $region;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Reservation", mappedBy="room")
-     */
-    private $reservations;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Commentaire", mappedBy="room")
      */
     private $commentaires;
@@ -95,11 +90,17 @@ class Room
      */
     private $imageUpdatedAt;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Reservation", mappedBy="room")
+     */
+    private $reservations;
+
     public function __construct()
     {
         $this->region = new ArrayCollection();
         $this->commentaires = new ArrayCollection();
         $this->unavailabilities = new ArrayCollection();
+        $this->reservations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -345,6 +346,29 @@ class Room
     public function setImageUpdatedAt(?\DateTimeInterface $imageUpdatedAt): self
     {
         $this->imageUpdatedAt = $imageUpdatedAt;
+
+        return $this;
+    }
+
+    public function addReservation(Reservation $reservation): self
+    {
+        if (!$this->reservations->contains($reservation)) {
+            $this->reservations[] = $reservation;
+            $reservation->setRoom($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReservation(Reservation $reservation): self
+    {
+        if ($this->reservations->contains($reservation)) {
+            $this->reservations->removeElement($reservation);
+            // set the owning side to null (unless already changed)
+            if ($reservation->getRoom() === $this) {
+                $reservation->setRoom(null);
+            }
+        }
 
         return $this;
     }

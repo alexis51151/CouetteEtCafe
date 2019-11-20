@@ -106,7 +106,7 @@ class UserFixtures extends Fixture
                 $owner->setFamilyName($email);
                 $manager->persist($owner);
                 $user->setOwner($owner);
-            }
+            }            
              
             if ($role == 'ROLE_CLIENT') {
                 $client = new Client();

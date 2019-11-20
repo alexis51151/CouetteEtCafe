@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Room;
+use App\Entity\Owner;
+use App\Entity\User;
 use App\Form\CommentaireType;
 use App\Form\RoomType;
 use App\Entity\Commentaire;
@@ -25,8 +27,12 @@ class RoomController extends AbstractController
      */
     public function index(RoomRepository $roomRepository): Response
     {
+        $user = $this->getUser();
+        if ($user == null){
+            return $this->redirectToRoute('app_login');
+        }
         return $this->render('room/index.html.twig', [
-            'rooms' => $roomRepository->findAll(), 
+            'rooms' => $roomRepository->findAll(), 'sous-titre' => "Vos chambres",
         ]);
     }
 
@@ -35,30 +41,33 @@ class RoomController extends AbstractController
      */
     public function new(Request $request): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_USER', null, 'Accès refusé, veuillez vous inscrire');
         $room = new Room();
         $form = $this->createForm(RoomType::class, $room);
         $form->handleRequest($request);
-        
+        $user = $this->getUser();
+        $room->setOwner($user->getOwner());
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($room);
             $entityManager->flush();
-            $this->get('session')->getFlashBag()->add('message', 'Commentaire bien publié');
             return $this->redirectToRoute('room_index');
         }
 
         return $this->render('room/new.html.twig', [
             'room' => $room,
             'form' => $form->createView(),
+            'sous-titre' => "Créer une nouvelle chambre",
         ]);
     }
 
     /**
-     * @Route("/{id}", name="room_show", methods={"GET", "POST"})
+     * @Route("/{id}", name="room_show", methods={"GET","POST"})
      * @ParamConverter("room", class="App\Entity\Room")
      */
     public function show(Request $request, Room $room): Response
     {
+        
         # Partie formulaire pour les commentaires en fin de page
         $new_commentaire = new Commentaire();
         $form = $this->createForm(CommentaireType::class, $new_commentaire);
@@ -67,19 +76,17 @@ class RoomController extends AbstractController
         $new_commentaire->setRoom($room);
         $new_commentaire->setDate(new \DateTime());
         $form->handleRequest($request);
-        
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($new_commentaire);
-            $entityManager->flush();
-            
-            return $this->redirectToRoute('room_show');
-        }
-        
-        # Fin partie formulaire
         $sous_titre = $room->getSummary();
         $commentaires = $room->getCommentaires();
         $nb_commentaires = $commentaires->count();
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->get('session')->getFlashBag()->add('message', 'Commentaire bien publié');
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($new_commentaire);
+            $entityManager->flush();
+            return $this->redirectToRoute('regions');
+        }
+        
         return $this->render('room/show.html.twig', [
             'room' => $room, 'sous_titre' => $sous_titre,"nb_commentaires" => $nb_commentaires, "commentaires" => $commentaires, 'form' => $form->createView(),
         ]);
@@ -92,10 +99,14 @@ class RoomController extends AbstractController
     {
         $form = $this->createForm(RoomType::class, $room);
         $form->handleRequest($request);
-
+        $user = $this->getUser();
+        if ($user == null ||$room->getOwner() != $user->getOwner() ){
+            return $this->redirectToRoute('app_login');
+            
+        }
         if ($form->isSubmitted() && $form->isValid()) {
+            
             $this->getDoctrine()->getManager()->flush();
-
             return $this->redirectToRoute('room_index');
         }
 
@@ -110,7 +121,11 @@ class RoomController extends AbstractController
      */
     public function delete(Request $request, Room $room): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$room->getId(), $request->request->get('_token'))) {
+        $user = $this->getUser();
+        if ($user == null || $room->getOwner() != $user->getOwner() ){
+            return $this->redirectToRoute('app_login');
+        }
+        if ($room->getOwner() == $user->getOwner()  && $this->isCsrfTokenValid('delete'.$room->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($room);
             $entityManager->flush();

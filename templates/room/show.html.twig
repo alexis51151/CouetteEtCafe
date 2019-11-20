@@ -1,8 +1,11 @@
 {% extends 'base.html.twig' %}
-
 {% block title %}Room{% endblock %}
 
 {% block main %}
+<!-- Include Date Range Picker -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+
 <!--  
     <h1>Room</h1>
 
@@ -74,7 +77,13 @@
                                 <li><a class="btn btn-xs btn-primary btn-outlined" >Convivialité</a></li>
                             </ul>
                         </div><!--/.tags-->
-
+						<div class="sandbox-container">
+						    <div class="input-daterange input-group" id="datepicker">
+                                <input type="text" class="input-sm form-control" name="start" />
+                                <span class="input-group-addon">to</span>
+                                <input type="text" class="input-sm form-control" name="end" />
+                            </div>
+						</div>
                     </aside>
                     <div class="col-sm-8 col-sm-pull-4">
                         <div class="blog">
@@ -112,7 +121,7 @@
                                                     <div class="well">
                                                         <div class="media-heading">
                                                         	{% if commentaire.user is defined and commentaire.date is defined %}
-                                                        	<strong>Dave Evans</strong>&nbsp; <small>30th Jan, 2014</small>
+                                                        	<strong>Dave Evans</strong>&nbsp; <small>{{ "now"|date("d/m/Y") }}</small>
                                                         	{% elseif commentaire.user is defined%}
                                                         	<strong>Dave Evans</strong>
                                                         	{% endif %}
@@ -121,14 +130,14 @@
                                                     </div>
                                                 </div>
                                             </div><!--/.media-->
+                                            {% endfor %}
                                         </div><!--/#comments-list-->
-                                        {% endfor %}
                                         <div class="gap"></div>
 										{% if app.user %}
                                         <div id="comment-form">
                                             <h3  class="main-title">Laissez un commentaire</h3>
                                             <hr>
-                                            <form class="form-horizontal" role="form">
+                                                {{ form_start(form) }}
                                                 <div class="form-group">
                                                     <div class="col-sm-12">
 {#                                                          <textarea rows="8" class="form-control" placeholder="Commentaire"></textarea>#}
@@ -136,7 +145,7 @@
                                                     </div>
                                                 </div>
                                                 <button type="submit" class="btn btn-primary btn-outlined">{{ button_label|default('Soumettre') }}</button>                                                
-                                            </form>
+                                                {{ form_end(form) }}
                                         </div><!--/#comment-form-->
                                         {% endif %}
                                     </div><!--/#comments-->
@@ -148,6 +157,11 @@
             </div>
         </section><!--/#blog-->
     </div>
-
+<script>    $('#sandbox-container .input-daterange').datepicker({
+    maxViewMode: 2,
+    language: "fr",
+    todayHighlight: true,
+    defaultViewDate: { year: 1977, month: 04, day: 25 }
+});</script>
 
 {% endblock %}

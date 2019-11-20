@@ -21,10 +21,18 @@ bootstrap_menu:
               route: 'app_register'
     account:
       items:
+        reservations:
+          label: 'Reservations'
+          route: 'reservation_index'
+          roles: [ 'ROLE_USER' ]
+        chambres:
+          label: 'Vos chambres'
+          route: 'room_index'
+          roles: [ 'ROLE_USER' ]
         account:
-          label: 'Account'
+          label: 'Compte'
           items:
             logout:
-              label: 'Logout'
+              label: 'Se déconnecter'
               route: 'app_logout'
               roles: [ 'ROLE_USER' ]

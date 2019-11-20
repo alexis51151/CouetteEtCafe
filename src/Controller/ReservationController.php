@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Reservation;
 use App\Form\ReservationType;
 use App\Repository\ReservationRepository;
+use App\Entity\User;
+use App\Entity\Client;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,12 +16,19 @@ use Symfony\Component\Routing\Annotation\Route;
  * @Route("/reservation")
  */
 class ReservationController extends AbstractController
-{
+{    
+    
     /**
      * @Route("/", name="reservation_index", methods={"GET"})
      */
     public function index(ReservationRepository $reservationRepository): Response
     {
+//         if (!is_object($this->getUser())) {
+//             $user_id = null;
+//         }
+//         else {
+//             $user_id = $this->getUser()->getId();
+//         }
         return $this->render('reservation/index.html.twig', [
             'reservations' => $reservationRepository->findAll(), 'sous_titre' => "Vos réservations",
         ]);
@@ -31,9 +40,10 @@ class ReservationController extends AbstractController
     public function new(Request $request): Response
     {
         $reservation = new Reservation();
+        $reservation->setClient($this->getUser()->getClient());
         $form = $this->createForm(ReservationType::class, $reservation);
         $form->handleRequest($request);
-
+            
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($reservation);

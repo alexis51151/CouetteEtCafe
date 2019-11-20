@@ -19,7 +19,7 @@ class Client
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $familyName;
 
@@ -49,7 +49,7 @@ class Client
     }
     
     public function __toString(){
-        return $this->getfamilyName();
+        return "Just some client";
     }
         
     public function getId(): ?int

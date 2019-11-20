@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use App\Entity\User;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ReservationRepository")
  */
@@ -15,12 +15,6 @@ class Reservation
      * @ORM\Column(type="integer")
      */
     private $id;
-
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Room", inversedBy="reservations", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $room;
 
     /**
      * @ORM\Column(type="datetime")
@@ -37,6 +31,17 @@ class Reservation
      * @ORM\JoinColumn(nullable=false)
      */
     private $client;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $confirmed;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Room", inversedBy="reservations")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $room;
 
     public function getId(): ?int
     {
@@ -87,6 +92,18 @@ class Reservation
     public function setClient(?Client $client): self
     {
         $this->client = $client;
+
+        return $this;
+    }
+
+    public function getConfirmed(): ?bool
+    {
+        return $this->confirmed;
+    }
+
+    public function setConfirmed(bool $confirmed): self
+    {
+        $this->confirmed = $confirmed;
 
         return $this;
     }

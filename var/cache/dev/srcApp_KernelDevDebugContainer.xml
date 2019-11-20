@@ -359,11 +359,31 @@
       </parameter>
       <parameter key="account" type="collection">
         <parameter key="items" type="collection">
+          <parameter key="reservations" type="collection">
+            <parameter key="label">Reservations</parameter>
+            <parameter key="route">reservation_index</parameter>
+            <parameter key="roles" type="collection">
+              <parameter>ROLE_USER</parameter>
+            </parameter>
+            <parameter key="is_divider">false</parameter>
+            <parameter key="route_parameters" type="collection"/>
+            <parameter key="items" type="collection"/>
+          </parameter>
+          <parameter key="chambres" type="collection">
+            <parameter key="label">Vos chambres</parameter>
+            <parameter key="route">room_index</parameter>
+            <parameter key="roles" type="collection">
+              <parameter>ROLE_USER</parameter>
+            </parameter>
+            <parameter key="is_divider">false</parameter>
+            <parameter key="route_parameters" type="collection"/>
+            <parameter key="items" type="collection"/>
+          </parameter>
           <parameter key="account" type="collection">
-            <parameter key="label">Account</parameter>
+            <parameter key="label">Compte</parameter>
             <parameter key="items" type="collection">
               <parameter key="logout" type="collection">
-                <parameter key="label">Logout</parameter>
+                <parameter key="label">Se déconnecter</parameter>
                 <parameter key="route">app_logout</parameter>
                 <parameter key="roles" type="collection">
                   <parameter>ROLE_USER</parameter>
