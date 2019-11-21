@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Room;
 use App\Entity\Owner;
 use App\Entity\User;
+use App\Entity\Client;
 use App\Form\CommentaireType;
 use App\Form\RoomType;
 use App\Entity\Commentaire;
@@ -17,6 +18,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Security\Core\Security;
 use \DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
 /**
  * @Route("/room")
  */
@@ -32,7 +34,7 @@ class RoomController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
         return $this->render('room/index.html.twig', [
-            'rooms' => $roomRepository->findAll(), 'sous-titre' => "Vos chambres",
+            'rooms' => $roomRepository->findAll(), 'sous_titre' => "Vos chambres à louer",
         ]);
     }
 
@@ -74,16 +76,28 @@ class RoomController extends AbstractController
         $user = $this->getUser();
         $new_commentaire->setUser($user);
         $new_commentaire->setRoom($room);
-        $new_commentaire->setDate(new \DateTime());
+        $dt = new DateTime();
+        $dt->format('Y-m-d H:i:s');
+        $new_commentaire->setDate($dt);
         $form->handleRequest($request);
         $sous_titre = $room->getSummary();
         $commentaires = $room->getCommentaires();
         $nb_commentaires = $commentaires->count();
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->get('session')->getFlashBag()->add('message', 'Commentaire bien publié');
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($new_commentaire);
-            $entityManager->flush();
+            $reservations= $room->getReservations();
+            $clients = new ArrayCollection();
+            foreach($reservations as $reservation){
+                $clients[] = $reservation->getClient();
+            }
+            if ($clients->contains($user->getClient())){
+                $this->get('session')->getFlashBag()->add('message', 'Commentaire bien publié');
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($new_commentaire);
+                $entityManager->flush();
+            }
+            else {
+                $this->get('session')->getFlashBag()->add('error', 'Vous ne pouvez commenter cette annonce.');
+            }
             return $this->redirectToRoute('regions');
         }
         

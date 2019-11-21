@@ -221,8 +221,13 @@ class Room
     public function __toString() {
         return $this->summary. ":" . $this->description . ".";
     }
+    
+    /**
+     * @return Collection|Reservation[]
+     */
+    
 
-    public function getReservations(): ?Reservation
+    public function getReservations(): Collection
     {
         return $this->reservations;
     }
