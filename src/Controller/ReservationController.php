@@ -37,7 +37,7 @@ class ReservationController extends AbstractController
     /**
      * @Route("/new", name="reservation_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, ReservationRepository $reservationRepository): Response
     {
         $reservation = new Reservation();
         $reservation->setClient($this->getUser()->getClient());
@@ -45,6 +45,25 @@ class ReservationController extends AbstractController
         $form->handleRequest($request);
             
         if ($form->isSubmitted() && $form->isValid()) {
+            /* On va regarder si la réservation est compatible avec les réservations déjà faites pour la chambre */
+            /* Condition de segments gauche->droite */
+            $cond1 = $reservation->getDateDebut() <= $reservation->getDateFin();
+            if(!$cond1){
+                $this->get('session')->getFlashBag()->add('error', 'La date de début doit être avant la date de fin.');
+                return $this->redirectToRoute('reservation_index');
+                
+            }
+            $reservations = $reservationRepository->findBy(['room' => $reservation->getRoom()]);
+            foreach ($reservations as $res){
+                /* Conditions de non intersection de deux segments de type [i,j] où j>=i */
+                $ou1 = $reservation->getDateDebut() <= $res->getDateDebut() && $reservation->getDateFin() <= $res->getDateDebut();
+                $ou2 = $reservation->getDateDebut() >= $res->getDateFin();
+                $ou = $ou1 || $ou2;
+                if (! $ou) {
+                    $this->get('session')->getFlashBag()->add('error', 'La chambre est déjà prise à cette date, veuillez choisir une autre date.');
+                    return $this->redirectToRoute('reservation_index');
+                }
+            }
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($reservation);
             $entityManager->flush();

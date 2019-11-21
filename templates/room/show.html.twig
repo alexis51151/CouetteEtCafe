@@ -62,7 +62,7 @@
                                             </div>
                                             <div class="media-body">
                                                 <div class="media-heading">
-                                                    <strong>Danny Jones</strong>
+                                                    <strong>John</strong>
                                                 </div>
                                                 <p>Humanity declared vicinity continue supplied no an. He hastened am no property exercise of. Dissimilar comparison no terminated devonshire no literature on. Say most yet head room such just easy.</p>
                                             </div>
@@ -121,9 +121,9 @@
                                                     <div class="well">
                                                         <div class="media-heading">
                                                         	{% if commentaire.user is defined and commentaire.date is defined %}
-                                                        	<strong>Dave Evans</strong>&nbsp; <small>{{ commentaire.date |date('d-m-Y') }}</small>
+                                                        	<strong>{{ app.user.email }}</strong>&nbsp; <small>{{ commentaire.date |date('d-m-Y') }}</small>
                                                         	{% elseif commentaire.user is defined%}
-                                                        	<strong>Dave Evans</strong>
+                                                        	<strong>{{  app.user.email }}</strong>
                                                         	{% endif %}
                                                         </div>
                                                         <p>{{ commentaire.contenu }}</p>
