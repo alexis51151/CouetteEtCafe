@@ -22,9 +22,15 @@ class Unavailabilities
     private $Room;
 
     /**
-     * @ORM\Column(type="array", nullable=true)
+     * @ORM\Column(type="datetime")
      */
-    private $dates = [];
+    private $date_debut;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $date_fin;
+
 
     public function getId(): ?int
     {
@@ -43,15 +49,28 @@ class Unavailabilities
         return $this;
     }
 
-    public function getDates(): ?array
+    public function getDateDebut(): ?\DateTimeInterface
     {
-        return $this->dates;
+        return $this->date_debut;
     }
 
-    public function setDates(?array $dates): self
+    public function setDateDebut(\DateTimeInterface $date_debut): self
     {
-        $this->dates = $dates;
+        $this->date_debut = $date_debut;
 
         return $this;
     }
+
+    public function getDateFin(): ?\DateTimeInterface
+    {
+        return $this->date_fin;
+    }
+
+    public function setDateFin(\DateTimeInterface $date_fin): self
+    {
+        $this->date_fin = $date_fin;
+
+        return $this;
+    }
+
 }

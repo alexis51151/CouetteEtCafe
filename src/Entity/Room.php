@@ -69,11 +69,6 @@ class Room
     private $commentaires;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Unavailabilities", mappedBy="Room")
-     */
-    private $unavailabilities;
-
-    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $imageName;
@@ -95,12 +90,18 @@ class Room
      */
     private $reservations;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Unavaibility", mappedBy="room")
+     */
+    private $unavaibilities;
+
     public function __construct()
     {
         $this->region = new ArrayCollection();
         $this->commentaires = new ArrayCollection();
         $this->unavailabilities = new ArrayCollection();
         $this->reservations = new ArrayCollection();
+        $this->unavaibilities = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -275,36 +276,6 @@ class Room
         return $this;
     }
 
-    /**
-     * @return Collection|Unavailabilities[]
-     */
-    public function getUnavailabilities(): Collection
-    {
-        return $this->unavailabilities;
-    }
-
-    public function addUnavailability(Unavailabilities $unavailability): self
-    {
-        if (!$this->unavailabilities->contains($unavailability)) {
-            $this->unavailabilities[] = $unavailability;
-            $unavailability->setRoom($this);
-        }
-
-        return $this;
-    }
-
-    public function removeUnavailability(Unavailabilities $unavailability): self
-    {
-        if ($this->unavailabilities->contains($unavailability)) {
-            $this->unavailabilities->removeElement($unavailability);
-            // set the owning side to null (unless already changed)
-            if ($unavailability->getRoom() === $this) {
-                $unavailability->setRoom(null);
-            }
-        }
-
-        return $this;
-    }
     
     /**
      * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
@@ -372,6 +343,37 @@ class Room
             // set the owning side to null (unless already changed)
             if ($reservation->getRoom() === $this) {
                 $reservation->setRoom(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Unavaibility[]
+     */
+    public function getUnavaibilities(): Collection
+    {
+        return $this->unavaibilities;
+    }
+
+    public function addUnavaibility(Unavaibility $unavaibility): self
+    {
+        if (!$this->unavaibilities->contains($unavaibility)) {
+            $this->unavaibilities[] = $unavaibility;
+            $unavaibility->setRoom($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUnavaibility(Unavaibility $unavaibility): self
+    {
+        if ($this->unavaibilities->contains($unavaibility)) {
+            $this->unavaibilities->removeElement($unavaibility);
+            // set the owning side to null (unless already changed)
+            if ($unavaibility->getRoom() === $this) {
+                $unavaibility->setRoom(null);
             }
         }
 

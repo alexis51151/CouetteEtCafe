@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Unavaibility index{% endblock %}
+
+{% block main %}
+    <h1>Unavaibility index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Chambre</th>
+                <th>Date_debut</th>
+                <th>Date_fin</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for unavaibility in unavaibilities %}
+            <tr>
+                <td>{{ unavaibility.room }}</td>
+                <td>{{ unavaibility.dateDebut ? unavaibility.dateDebut|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ unavaibility.dateFin ? unavaibility.dateFin|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('unavaibility_show', {'id': unavaibility.id}) }}">show</a>
+                    <a href="{{ path('unavaibility_edit', {'id': unavaibility.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('unavaibility_new') }}">Create new</a>
+{% endblock %}

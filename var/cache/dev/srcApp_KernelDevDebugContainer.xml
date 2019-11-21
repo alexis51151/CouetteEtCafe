@@ -582,11 +582,11 @@
         <argument type="service" id=".service_locator.CDOTD6..App\Controller\SecurityController"/>
       </call>
     </service>
-    <service id="App\Controller\UnavailabilitiesController" class="App\Controller\UnavailabilitiesController" public="true" autowire="true" autoconfigure="true">
+    <service id="App\Controller\UnavaibilityController" class="App\Controller\UnavaibilityController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
       <call method="setContainer">
-        <argument type="service" id=".service_locator.CDOTD6..App\Controller\UnavailabilitiesController"/>
+        <argument type="service" id=".service_locator.CDOTD6..App\Controller\UnavaibilityController"/>
       </call>
     </service>
     <service id="App\DataFixtures\UserFixtures" class="App\DataFixtures\UserFixtures" autowire="true" autoconfigure="true">
@@ -611,7 +611,7 @@
     <service id="App\Form\RoomType" class="App\Form\RoomType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
     </service>
-    <service id="App\Form\UnavailabilitiesType" class="App\Form\UnavailabilitiesType" autowire="true" autoconfigure="true">
+    <service id="App\Form\UnavaibilityType" class="App\Form\UnavaibilityType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
     </service>
     <service id="App\Repository\ClientRepository" class="App\Repository\ClientRepository" autowire="true" autoconfigure="true">
@@ -638,7 +638,7 @@
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
     </service>
-    <service id="App\Repository\UnavailabilitiesRepository" class="App\Repository\UnavailabilitiesRepository" autowire="true" autoconfigure="true">
+    <service id="App\Repository\UnavaibilityRepository" class="App\Repository\UnavaibilityRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
     </service>
@@ -990,7 +990,7 @@
         <argument>App\Form\RegistrationFormType</argument>
         <argument>App\Form\ReservationType</argument>
         <argument>App\Form\RoomType</argument>
-        <argument>App\Form\UnavailabilitiesType</argument>
+        <argument>App\Form\UnavaibilityType</argument>
         <argument>Symfony\Component\Form\Extension\Core\Type\FormType</argument>
         <argument>Symfony\Component\Form\Extension\Core\Type\ChoiceType</argument>
         <argument>Symfony\Component\Form\Extension\Core\Type\FileType</argument>
@@ -1258,7 +1258,7 @@
       <argument type="service" id="form.registry"/>
     </service>
     <service id="form.extension" class="Symfony\Component\Form\Extension\DependencyInjection\DependencyInjectionExtension" public="false">
-      <argument type="service" id=".service_locator.epFc5c9"/>
+      <argument type="service" id=".service_locator.90_t47c"/>
       <argument type="collection">
         <argument key="Symfony\Component\Form\Extension\Core\Type\FormType" type="iterator">
           <argument type="service" id="form.type_extension.form.transformation_failure_handling"/>
@@ -3230,7 +3230,7 @@
       <factory class="Doctrine\ORM\EntityManager" method="create"/>
     </service>
     <service id="doctrine.orm.container_repository_factory" class="Doctrine\Bundle\DoctrineBundle\Repository\ContainerRepositoryFactory" public="false">
-      <argument type="service" id=".service_locator.nByTFQK"/>
+      <argument type="service" id=".service_locator.hip772N"/>
     </service>
     <service id="doctrine.orm.manager_configurator.abstract" class="Doctrine\Bundle\DoctrineBundle\ManagerConfigurator" abstract="true">
       <argument type="collection"/>
@@ -5215,9 +5215,9 @@
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\SecurityController" class="App\Controller\SecurityController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\SecurityController" class="App\Controller\SecurityController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\SecurityController" class="App\Controller\SecurityController" autowire="true" autoconfigure="true" abstract="true"/>
-    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\UnavailabilitiesController" class="App\Controller\UnavailabilitiesController" autowire="true" abstract="true"/>
-    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\UnavailabilitiesController" class="App\Controller\UnavailabilitiesController" autowire="true" abstract="true"/>
-    <service id=".abstract.instanceof.App\Controller\UnavailabilitiesController" class="App\Controller\UnavailabilitiesController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\UnavaibilityController" class="App\Controller\UnavaibilityController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\UnavaibilityController" class="App\Controller\UnavaibilityController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\UnavaibilityController" class="App\Controller\UnavaibilityController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\FixturesBundle\ORMFixtureInterface.0.App\DataFixtures\UserFixtures" class="App\DataFixtures\UserFixtures" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\DataFixtures\UserFixtures" class="App\DataFixtures\UserFixtures" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\ClientType" class="App\Form\ClientType" autowire="true" abstract="true"/>
@@ -5232,8 +5232,8 @@
     <service id=".abstract.instanceof.App\Form\ReservationType" class="App\Form\ReservationType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\RoomType" class="App\Form\RoomType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\RoomType" class="App\Form\RoomType" autowire="true" autoconfigure="true" abstract="true"/>
-    <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\UnavailabilitiesType" class="App\Form\UnavailabilitiesType" autowire="true" abstract="true"/>
-    <service id=".abstract.instanceof.App\Form\UnavailabilitiesType" class="App\Form\UnavailabilitiesType" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\UnavaibilityType" class="App\Form\UnavaibilityType" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Form\UnavaibilityType" class="App\Form\UnavaibilityType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\ClientRepository" class="App\Repository\ClientRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\ClientRepository" class="App\Repository\ClientRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\CommentaireRepository" class="App\Repository\CommentaireRepository" autowire="true" abstract="true"/>
@@ -5246,8 +5246,8 @@
     <service id=".abstract.instanceof.App\Repository\ReservationRepository" class="App\Repository\ReservationRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\RoomRepository" class="App\Repository\RoomRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\RoomRepository" class="App\Repository\RoomRepository" autowire="true" autoconfigure="true" abstract="true"/>
-    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\UnavailabilitiesRepository" class="App\Repository\UnavailabilitiesRepository" autowire="true" abstract="true"/>
-    <service id=".abstract.instanceof.App\Repository\UnavailabilitiesRepository" class="App\Repository\UnavailabilitiesRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\UnavaibilityRepository" class="App\Repository\UnavaibilityRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\UnavaibilityRepository" class="App\Repository\UnavaibilityRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\UserRepository" class="App\Repository\UserRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\UserRepository" class="App\Repository\UserRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id="maker.auto_command.make_auth" class="Symfony\Bundle\MakerBundle\Command\MakerCommand" public="false">
@@ -5474,19 +5474,19 @@
         <argument key="authenticationUtils" type="service" id="security.authentication_utils"/>
       </argument>
     </service>
-    <service id=".service_locator.VyoFsHT" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.uJdj73A" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
-        <argument key="unavailabilitiesRepository" type="service" id="App\Repository\UnavailabilitiesRepository"/>
+        <argument key="unavaibilityRepository" type="service" id="App\Repository\UnavaibilityRepository"/>
       </argument>
     </service>
-    <service id=".service_locator.jTPTWRf" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.KlwD.Ug" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
-        <argument key="unavailability" type="service" id=".errored..service_locator.jTPTWRf.App\Entity\Unavailabilities"/>
+        <argument key="unavaibility" type="service" id=".errored..service_locator.KlwD.Ug.App\Entity\Unavaibility"/>
       </argument>
     </service>
-    <service id=".service_locator.5nUsrp0" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.IBinvOA" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\ClientController::delete" type="service" id=".service_locator.G3Dsh9s"/>
@@ -5508,10 +5508,10 @@
         <argument key="App\Controller\RoomController::index" type="service" id=".service_locator.v9Nl9gk"/>
         <argument key="App\Controller\RoomController::show" type="service" id=".service_locator.BkOHXLl"/>
         <argument key="App\Controller\SecurityController::login" type="service" id=".service_locator.EbLunuf"/>
-        <argument key="App\Controller\UnavailabilitiesController::delete" type="service" id=".service_locator.jTPTWRf"/>
-        <argument key="App\Controller\UnavailabilitiesController::edit" type="service" id=".service_locator.jTPTWRf"/>
-        <argument key="App\Controller\UnavailabilitiesController::index" type="service" id=".service_locator.VyoFsHT"/>
-        <argument key="App\Controller\UnavailabilitiesController::show" type="service" id=".service_locator.jTPTWRf"/>
+        <argument key="App\Controller\UnavaibilityController::delete" type="service" id=".service_locator.KlwD.Ug"/>
+        <argument key="App\Controller\UnavaibilityController::edit" type="service" id=".service_locator.KlwD.Ug"/>
+        <argument key="App\Controller\UnavaibilityController::index" type="service" id=".service_locator.uJdj73A"/>
+        <argument key="App\Controller\UnavaibilityController::show" type="service" id=".service_locator.KlwD.Ug"/>
         <argument key="App\Controller\ClientController:delete" type="service" id=".service_locator.G3Dsh9s"/>
         <argument key="App\Controller\ClientController:edit" type="service" id=".service_locator.G3Dsh9s"/>
         <argument key="App\Controller\ClientController:index" type="service" id=".service_locator.Jr97Qih"/>
@@ -5531,10 +5531,10 @@
         <argument key="App\Controller\RoomController:index" type="service" id=".service_locator.v9Nl9gk"/>
         <argument key="App\Controller\RoomController:show" type="service" id=".service_locator.BkOHXLl"/>
         <argument key="App\Controller\SecurityController:login" type="service" id=".service_locator.EbLunuf"/>
-        <argument key="App\Controller\UnavailabilitiesController:delete" type="service" id=".service_locator.jTPTWRf"/>
-        <argument key="App\Controller\UnavailabilitiesController:edit" type="service" id=".service_locator.jTPTWRf"/>
-        <argument key="App\Controller\UnavailabilitiesController:index" type="service" id=".service_locator.VyoFsHT"/>
-        <argument key="App\Controller\UnavailabilitiesController:show" type="service" id=".service_locator.jTPTWRf"/>
+        <argument key="App\Controller\UnavaibilityController:delete" type="service" id=".service_locator.KlwD.Ug"/>
+        <argument key="App\Controller\UnavaibilityController:edit" type="service" id=".service_locator.KlwD.Ug"/>
+        <argument key="App\Controller\UnavaibilityController:index" type="service" id=".service_locator.uJdj73A"/>
+        <argument key="App\Controller\UnavaibilityController:show" type="service" id=".service_locator.KlwD.Ug"/>
       </argument>
     </service>
     <service id=".service_locator.LtnrEkg" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
@@ -5596,7 +5596,7 @@
       <argument type="service" id="debug.argument_resolver.not_tagged_controller.inner"/>
       <argument type="service" id="debug.stopwatch"/>
     </service>
-    <service id=".service_locator.epFc5c9" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.90_t47c" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Form\ClientType" type="service" id="App\Form\ClientType"/>
@@ -5605,7 +5605,7 @@
         <argument key="App\Form\RegistrationFormType" type="service" id="App\Form\RegistrationFormType"/>
         <argument key="App\Form\ReservationType" type="service" id="App\Form\ReservationType"/>
         <argument key="App\Form\RoomType" type="service" id="App\Form\RoomType"/>
-        <argument key="App\Form\UnavailabilitiesType" type="service" id="App\Form\UnavailabilitiesType"/>
+        <argument key="App\Form\UnavaibilityType" type="service" id="App\Form\UnavaibilityType"/>
         <argument key="Symfony\Bridge\Doctrine\Form\Type\EntityType" type="service" id="form.type.entity"/>
         <argument key="Symfony\Component\Form\Extension\Core\Type\ChoiceType" type="service" id="form.type.choice"/>
         <argument key="Symfony\Component\Form\Extension\Core\Type\FileType" type="service" id="form.type.file"/>
@@ -5620,7 +5620,7 @@
         <argument key="doctrine.orm.default_listeners.attach_entity_listeners" type="service" id="doctrine.orm.default_listeners.attach_entity_listeners"/>
       </argument>
     </service>
-    <service id=".service_locator.nByTFQK" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.hip772N" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Repository\ClientRepository" type="service" id="App\Repository\ClientRepository"/>
@@ -5629,7 +5629,7 @@
         <argument key="App\Repository\RegionRepository" type="service" id="App\Repository\RegionRepository"/>
         <argument key="App\Repository\ReservationRepository" type="service" id="App\Repository\ReservationRepository"/>
         <argument key="App\Repository\RoomRepository" type="service" id="App\Repository\RoomRepository"/>
-        <argument key="App\Repository\UnavailabilitiesRepository" type="service" id="App\Repository\UnavailabilitiesRepository"/>
+        <argument key="App\Repository\UnavaibilityRepository" type="service" id="App\Repository\UnavaibilityRepository"/>
         <argument key="App\Repository\UserRepository" type="service" id="App\Repository\UserRepository"/>
       </argument>
     </service>
@@ -5883,9 +5883,9 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.CDOTD6." method="withContext"/>
     </service>
-    <service id=".service_locator.CDOTD6..App\Controller\UnavailabilitiesController" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
-      <tag name="container.service_locator_context" id="App\Controller\UnavailabilitiesController"/>
-      <argument>App\Controller\UnavailabilitiesController</argument>
+    <service id=".service_locator.CDOTD6..App\Controller\UnavaibilityController" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator_context" id="App\Controller\UnavaibilityController"/>
+      <argument>App\Controller\UnavaibilityController</argument>
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.CDOTD6." method="withContext"/>
     </service>
@@ -5982,12 +5982,12 @@
       <argument type="service" id="security.token_storage"/>
     </service>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver" public="false">
-      <argument type="service" id=".service_locator.5nUsrp0"/>
+      <argument type="service" id=".service_locator.IBinvOA"/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver" public="false"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver" public="false"/>
     <service id="debug.argument_resolver.not_tagged_controller.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver" public="false">
-      <argument type="service" id=".service_locator.5nUsrp0"/>
+      <argument type="service" id=".service_locator.IBinvOA"/>
     </service>
     <service id=".service_locator.UwRI0uT" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
@@ -6015,7 +6015,7 @@
     <service id=".errored..service_locator.vIHt.Cx.App\Entity\Region" class="App\Entity\Region"/>
     <service id=".errored..service_locator.eH1R0Zw.App\Entity\Reservation" class="App\Entity\Reservation"/>
     <service id=".errored..service_locator.BkOHXLl.App\Entity\Room" class="App\Entity\Room"/>
-    <service id=".errored..service_locator.jTPTWRf.App\Entity\Unavailabilities" class="App\Entity\Unavailabilities"/>
+    <service id=".errored..service_locator.KlwD.Ug.App\Entity\Unavaibility" class="App\Entity\Unavaibility"/>
     <service id="console.command_loader" class="Symfony\Component\Console\CommandLoader\ContainerCommandLoader" public="true">
       <argument type="service" id=".service_locator.1iOHDA4"/>
       <argument type="collection">
@@ -6395,7 +6395,7 @@
     <service id="Vich\UploaderBundle\Form\Type\VichImageType" alias="vich_uploader.form.type.image" public="false"/>
     <service id="Vich\UploaderBundle\Templating\Helper\UploaderHelper" alias="vich_uploader.templating.helper.uploader_helper" public="false"/>
     <service id="Vich\UploaderBundle\Twig\Extension\UploaderExtension" alias="vich_uploader.twig.extension.uploader" public="false"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.5nUsrp0"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.IBinvOA"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem" public="false"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="validator" alias="debug.validator" public="true"/>
