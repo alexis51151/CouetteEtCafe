@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}UnavaibilityCollection{% endblock %}
+
+{% block main %}
+    <h1>UnavaibilityCollection</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ unavaibility_collection.id }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('unavaibility_collection_index') }}">back to list</a>
+
+    <a href="{{ path('unavaibility_collection_edit', {'id': unavaibility_collection.id}) }}">edit</a>
+
+    {{ include('unavaibility_collection/_delete_form.html.twig') }}
+{% endblock %}

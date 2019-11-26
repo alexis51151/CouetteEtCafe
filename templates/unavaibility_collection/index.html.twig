@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}UnavaibilityCollection index{% endblock %}
+
+{% block main %}
+    <h1>UnavaibilityCollection index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for unavaibility_collection in unavaibility_collections %}
+            <tr>
+                <td>{{ unavaibility_collection.id }}</td>
+                <td>
+                    <a href="{{ path('unavaibility_collection_show', {'id': unavaibility_collection.id}) }}">show</a>
+                    <a href="{{ path('unavaibility_collection_edit', {'id': unavaibility_collection.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="2">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('unavaibility_collection_new') }}">Create new</a>
+{% endblock %}

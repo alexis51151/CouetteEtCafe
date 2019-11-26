@@ -35,8 +35,8 @@
             <tr>
                 {%  if room.id in likes %}
                		<td><a href="/room/{{room.id}}">{{ room.summary }}</a>
-                    <a href="{{ path('likes', {'id_region': (room.region|first).id, 'id_room': room.id}) }}"><img src="{{ asset('/Impact/images/ico/like.png') }}"  height="25px" width="25px" ></a>
-                    {% endif %}
+                    <a href="{{ path('likes', {'id_region': room.region.first.id, 'id_room': room.id}) }}"><img src="{{ asset('/Impact/images/ico/like.png') }}"  height="25px" width="25px" ></a>
+                {% endif %}
                 
                 </td> 				
             </tr>

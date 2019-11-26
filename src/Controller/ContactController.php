@@ -42,11 +42,13 @@ class ContactController extends AbstractController
             else {
                 $contact->setAuthor($user);
             }
+            $this->get('session')->getFlashBag()->add('message', 'Message bien envoyé.');
+           
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($contact);
             $entityManager->flush();
 
-            return $this->redirectToRoute('contact_index');
+            return $this->redirectToRoute('contact_new');
         }
 
         return $this->render('contact/new.html.twig', [

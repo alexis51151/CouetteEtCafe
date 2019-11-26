@@ -32,6 +32,11 @@ class Unavaibility
      */
     private $room;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\UnavaibilityCollection", inversedBy="unavaibilities")
+     */
+    private $unavaibilityCollection;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -69,6 +74,18 @@ class Unavaibility
     public function setRoom(?Room $room): self
     {
         $this->room = $room;
+
+        return $this;
+    }
+
+    public function getUnavaibilityCollection(): ?UnavaibilityCollection
+    {
+        return $this->unavaibilityCollection;
+    }
+
+    public function setUnavaibilityCollection(?UnavaibilityCollection $unavaibilityCollection): self
+    {
+        $this->unavaibilityCollection = $unavaibilityCollection;
 
         return $this;
     }

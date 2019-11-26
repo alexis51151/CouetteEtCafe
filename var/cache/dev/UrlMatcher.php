@@ -29,6 +29,8 @@ return [
         '/room/new' => [[['_route' => 'room_new', '_controller' => 'App\\Controller\\RoomController::new'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
         '/login' => [[['_route' => 'app_login', '_controller' => 'App\\Controller\\SecurityController::login'], null, null, null, false, false, null]],
         '/logout' => [[['_route' => 'app_logout', '_controller' => 'App\\Controller\\SecurityController::logout'], null, null, null, false, false, null]],
+        '/unavaibility/collection' => [[['_route' => 'unavaibility_collection_index', '_controller' => 'App\\Controller\\UnavaibilityCollectionController::index'], null, ['GET' => 0], null, true, false, null]],
+        '/unavaibility/collection/new' => [[['_route' => 'unavaibility_collection_new', '_controller' => 'App\\Controller\\UnavaibilityCollectionController::new'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
         '/unavaibility' => [[['_route' => 'unavaibility_index', '_controller' => 'App\\Controller\\UnavaibilityController::index'], null, ['GET' => 0], null, true, false, null]],
         '/unavaibility/new' => [[['_route' => 'unavaibility_new', '_controller' => 'App\\Controller\\UnavaibilityController::new'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
     ],
@@ -86,10 +88,17 @@ return [
                         .'|(*:461)'
                     .')'
                 .')'
-                .'|/unavaibility/([^/]++)(?'
-                    .'|(*:496)'
-                    .'|/edit(*:509)'
-                    .'|(*:517)'
+                .'|/unavaibility/(?'
+                    .'|collection/([^/]++)(?'
+                        .'|(*:510)'
+                        .'|/edit(*:523)'
+                        .'|(*:531)'
+                    .')'
+                    .'|([^/]++)(?'
+                        .'|(*:551)'
+                        .'|/edit(*:564)'
+                        .'|(*:572)'
+                    .')'
                 .')'
             .')/?$}sDu',
     ],
@@ -118,9 +127,12 @@ return [
         430 => [[['_route' => 'room_edit', '_controller' => 'App\\Controller\\RoomController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
         452 => [[['_route' => 'likes', '_controller' => 'App\\Controller\\RoomController::addLike'], ['id_room', 'id_region'], null, null, false, false, null]],
         461 => [[['_route' => 'room_delete', '_controller' => 'App\\Controller\\RoomController::delete'], ['id'], ['DELETE' => 0], null, false, true, null]],
-        496 => [[['_route' => 'unavaibility_show', '_controller' => 'App\\Controller\\UnavaibilityController::show'], ['id'], ['GET' => 0], null, false, true, null]],
-        509 => [[['_route' => 'unavaibility_edit', '_controller' => 'App\\Controller\\UnavaibilityController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        517 => [
+        510 => [[['_route' => 'unavaibility_collection_show', '_controller' => 'App\\Controller\\UnavaibilityCollectionController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        523 => [[['_route' => 'unavaibility_collection_edit', '_controller' => 'App\\Controller\\UnavaibilityCollectionController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        531 => [[['_route' => 'unavaibility_collection_delete', '_controller' => 'App\\Controller\\UnavaibilityCollectionController::delete'], ['id'], ['DELETE' => 0], null, false, true, null]],
+        551 => [[['_route' => 'unavaibility_show', '_controller' => 'App\\Controller\\UnavaibilityController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        564 => [[['_route' => 'unavaibility_edit', '_controller' => 'App\\Controller\\UnavaibilityController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        572 => [
             [['_route' => 'unavaibility_delete', '_controller' => 'App\\Controller\\UnavaibilityController::delete'], ['id'], ['DELETE' => 0], null, false, true, null],
             [null, null, null, null, false, false, 0],
         ],

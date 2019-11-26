@@ -28,7 +28,7 @@ class PanierController extends AbstractController
         $rooms = $em->getRepository(Room::class)->findAll();
         $likes = $this->get('session')->get('likes');
         return $this->render('panier/index.html.twig', [
-            'controller_name' => 'PanierController', 'rooms' => $rooms, 'likes' => $likes, 'sous_titre' => "Votre panier",
+            'rooms' => $rooms, 'likes' => $likes, 'sous_titre' => "Votre panier",
         ]);
     }
 }

@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit UnavaibilityCollection{% endblock %}
+
+{% block main %}
+    <h1>Edit UnavaibilityCollection</h1>
+
+    {{ include('unavaibility_collection/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('unavaibility_collection_index') }}">back to list</a>
+
+    {{ include('unavaibility_collection/_delete_form.html.twig') }}
+{% endblock %}
