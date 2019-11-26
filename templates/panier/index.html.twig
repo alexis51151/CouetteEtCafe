@@ -1,0 +1,52 @@
+{% extends 'base_old.html.twig' %}
+
+{% block title %}Liste d'annonces{% endblock %}
+
+{% block main %}
+    <section id="single-page-slider" class="no-margin">
+        <div class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                <div class="item active">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="center gap fade-down section-heading">
+                                    <h2 class="main-title">{{ sous_titre }}</h2>
+                                    <hr>
+                                </div>
+                            </div>   
+                        </div>
+                    </div>
+                </div><!--/.item-->
+            </div><!--/.carousel-inner-->
+        </div><!--/.carousel-->
+    </section><!--/#main-slider-->
+<div id="content-wrapper">
+    <section id="portfolio" class="white" >
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Résumé</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for room in rooms %}
+            <tr>
+                {%  if room.id in likes %}
+               		<td><a href="/room/{{room.id}}">{{ room.summary }}</a>
+                    <a href="{{ path('likes', {'id_region': (room.region|first).id, 'id_room': room.id}) }}"><img src="{{ asset('/Impact/images/ico/like.png') }}"  height="25px" width="25px" ></a>
+                    {% endif %}
+                
+                </td> 				
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">Pas d'annonce pour cette région.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    </section>
+</div>
+{% endblock %}

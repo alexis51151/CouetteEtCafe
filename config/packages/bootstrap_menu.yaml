@@ -8,6 +8,13 @@ bootstrap_menu:
         regions:
           label: 'Regions'
           route: 'regions'
+        contact:
+          label: 'Contact'
+          route: 'contact_new'
+        panier:
+          label: 'Panier'
+          route: 'panier'
+
     anonymousaccount:
       items:
         account:
@@ -19,6 +26,7 @@ bootstrap_menu:
             register:
               label: 'Register'
               route: 'app_register'
+
     account:
       items:
         reservations:
@@ -36,3 +44,8 @@ bootstrap_menu:
               label: 'Se déconnecter'
               route: 'app_logout'
               roles: [ 'ROLE_USER' ]
+        contact:
+          label: 'Messages'
+          route: 'contact_index'
+          roles: [ 'ROLE_ADMIN' ]
+

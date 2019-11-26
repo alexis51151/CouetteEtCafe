@@ -61,10 +61,6 @@ class UserFixtures extends Fixture
         // enregistrée précédamment, ce qui permet d'éviter de se
         // tromper d'instance de Region :
         $room->addRegion($this->getReference(self::IDF_REGION_REFERENCE));
-        $commentaire = new Commentaire();
-        $commentaire->setRoom($room);
-        $commentaire->setContenu("Was are delightful solicitude discovered collecting man day. Resolving neglected sir tolerably but existence conveying for. Day his put off unaffected literature partiality inhabiting.");
-        $manager->persist($commentaire);
         $manager->persist($room);
         
         $room = new Room();

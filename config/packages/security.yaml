@@ -41,3 +41,6 @@ security:
         # - { path: ^/profile, roles: ROLE_USER }
           - { path: ^/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
           - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+          - { path: ^/reservation, role : ROLE_USER }
+          - { path: ^/unavaibility, role: ROLE_USER }
+          - { path: ^/client, role: ROLE_ADMIN }

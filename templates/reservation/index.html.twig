@@ -56,6 +56,8 @@
                         <td>{{ reservation.dateFin ? reservation.dateFin|date('Y-m-d H:i:s') : '' }}</td>
                         <td>
                             <a href="{{ path('reservation_show', {'id': reservation.id}) }}">voir</a>
+                            <a href="{{ path('reservation_edit', {'id': reservation.id}) }}">modifier</a>
+                            
                         </td>
                     </tr> 
                            
@@ -71,6 +73,7 @@
     </table>
 
      <a href="{{ path('reservation_new') }}">Create new</a>
+     <a href="{{ path('unavaibility_index') }}">Voir indisponibilités</a>
     </section>
 </div>
 {% endblock %}

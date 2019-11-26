@@ -20,6 +20,8 @@ class ClientController extends AbstractController
      */
     public function index(ClientRepository $clientRepository): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Accès refusé.');
+        
         return $this->render('client/index.html.twig', [
             'clients' => $clientRepository->findAll(), 'sous_titre' => 'Liste des clients',
         ]);
@@ -53,6 +55,7 @@ class ClientController extends AbstractController
      */
     public function show(Client $client): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Accès refusé.');
         return $this->render('client/show.html.twig', [
             'client' => $client,  'sous_titre' => 'Liste des clients',
         ]);
@@ -63,6 +66,7 @@ class ClientController extends AbstractController
      */
     public function edit(Request $request, Client $client): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Accès refusé.');
         $form = $this->createForm(ClientType::class, $client);
         $form->handleRequest($request);
 
@@ -83,6 +87,7 @@ class ClientController extends AbstractController
      */
     public function delete(Request $request, Client $client): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Accès refusé.');
         if ($this->isCsrfTokenValid('delete'.$client->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($client);

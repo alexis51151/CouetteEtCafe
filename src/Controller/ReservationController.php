@@ -7,6 +7,9 @@ use App\Form\ReservationType;
 use App\Repository\ReservationRepository;
 use App\Entity\User;
 use App\Entity\Client;
+use App\Entity\Unavaibility;
+use App\Form\UnavaibilityType;
+use App\Repository\UnavaibilityRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -39,11 +42,16 @@ class ReservationController extends AbstractController
      */
     public function new(Request $request, ReservationRepository $reservationRepository): Response
     {
+        $user = $this->getUser();
         $reservation = new Reservation();
+        if ($user == null){
+            return $this->redirectToRoute('login');
+            
+        }
         $reservation->setClient($this->getUser()->getClient());
         $form = $this->createForm(ReservationType::class, $reservation);
         $form->handleRequest($request);
-            
+        /* On sécurise le formulaire en vérifiant qu'il a bien le droit de modifier */
         if ($form->isSubmitted() && $form->isValid()) {
             /* On va regarder si la réservation est compatible avec les réservations déjà faites pour la chambre */
             /* Condition de segments gauche->droite */
@@ -64,6 +72,18 @@ class ReservationController extends AbstractController
                     return $this->redirectToRoute('reservation_index');
                 }
             }
+            $unavaibilities = $reservationRepository->findBy(['room' => $reservation->getRoom()]);
+            foreach ($unavaibilities as $unaiv){
+                /* Conditions de non intersection de deux segments de type [i,j] où j>=i */
+                $ou1 = $reservation->getDateDebut() <= $unaiv->getDateDebut() && $reservation->getDateFin() <= $unaiv->getDateDebut();
+                $ou2 = $reservation->getDateDebut() >= $unaiv->getDateFin();
+                $ou = $ou1 || $ou2;
+                if (! $ou) {
+                    $this->get('session')->getFlashBag()->add('error', 'La chambre est déjà prise à cette date, veuillez choisir une autre date.');
+                    return $this->redirectToRoute('reservation_index');
+                }
+            }
+            
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($reservation);
             $entityManager->flush();
@@ -90,12 +110,32 @@ class ReservationController extends AbstractController
     /**
      * @Route("/{id}/edit", name="reservation_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Reservation $reservation): Response
+    public function edit(Request $request, Reservation $reservation, ReservationRepository $reservationRepository): Response
     {
         $form = $this->createForm(ReservationType::class, $reservation);
         $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
+        $user = $this-getUser();
+        if ($user != null && $user== $reservation->getClient()->getUser() && $form->isSubmitted() && $form->isValid()) {
+            /* On va regarder si la réservation est compatible avec les réservations déjà faites pour la chambre */
+            /* Condition de segments gauche->droite */
+            $cond1 = $reservation->getDateDebut() <= $reservation->getDateFin();
+            if(!$cond1){
+                $this->get('session')->getFlashBag()->add('error', 'La date de début doit être avant la date de fin.');
+                return $this->redirectToRoute('reservation_index');
+                
+            }
+            $reservations = $reservationRepository->findBy(['room' => $reservation->getRoom()]);
+            foreach ($reservations as $res){
+                /* Conditions de non intersection de deux segments de type [i,j] où j>=i */
+                $ou1 = $reservation->getDateDebut() <= $res->getDateDebut() && $reservation->getDateFin() <= $res->getDateDebut();
+                $ou2 = $reservation->getDateDebut() >= $res->getDateFin();
+                $ou = $ou1 || $ou2;
+                if (! $ou) {
+                    $this->get('session')->getFlashBag()->add('error', 'La chambre est déjà prise à cette date, veuillez choisir une autre date.');
+                    return $this->redirectToRoute('reservation_index');
+                }
+            }
+            
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('reservation_index');

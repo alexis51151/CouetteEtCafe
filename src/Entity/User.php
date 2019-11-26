@@ -52,9 +52,15 @@ class User implements UserInterface
      */
     private $commentaires;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Contact", mappedBy="author")
+     */
+    private $contacts;
+
     public function __construct()
     {
         $this->commentaires = new ArrayCollection();
+        $this->contacts = new ArrayCollection();
     }
     public function __toString()
     {
@@ -62,7 +68,7 @@ class User implements UserInterface
             return("None");
         }
         else {
-            return $this->client->getfamilyName();
+            return $this->client->getMail();
         }
     }
     public function getId(): ?int
@@ -103,7 +109,7 @@ class User implements UserInterface
 
         return array_unique($roles);
     }
-
+    
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;
@@ -117,6 +123,7 @@ class User implements UserInterface
         }
         return $this;
     }
+        
     
     /**
      * @see UserInterface
@@ -211,6 +218,37 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($commentaire->getUser() === $this) {
                 $commentaire->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Contact[]
+     */
+    public function getContacts(): Collection
+    {
+        return $this->contacts;
+    }
+
+    public function addContact(Contact $contact): self
+    {
+        if (!$this->contacts->contains($contact)) {
+            $this->contacts[] = $contact;
+            $contact->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeContact(Contact $contact): self
+    {
+        if ($this->contacts->contains($contact)) {
+            $this->contacts->removeElement($contact);
+            // set the owning side to null (unless already changed)
+            if ($contact->getAuthor() === $this) {
+                $contact->setAuthor(null);
             }
         }
 

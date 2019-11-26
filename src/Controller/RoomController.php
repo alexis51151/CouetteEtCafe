@@ -114,7 +114,7 @@ class RoomController extends AbstractController
         $form = $this->createForm(RoomType::class, $room);
         $form->handleRequest($request);
         $user = $this->getUser();
-        if ($user == null ||$room->getOwner() != $user->getOwner() ){
+        if ($user == null ||( (!in_array('ROLE_ADMIN',$user->getRoles())) && $room->getOwner() != $user->getOwner()) ){
             return $this->redirectToRoute('app_login');
             
         }
@@ -136,7 +136,7 @@ class RoomController extends AbstractController
     public function delete(Request $request, Room $room): Response
     {
         $user = $this->getUser();
-        if ($user == null || $room->getOwner() != $user->getOwner() ){
+        if ($user == null || ( (!in_array('ROLE_ADMIN',$user->getRoles())) && $room->getOwner() != $user->getOwner())){
             return $this->redirectToRoute('app_login');
         }
         if ($room->getOwner() == $user->getOwner()  && $this->isCsrfTokenValid('delete'.$room->getId(), $request->request->get('_token'))) {

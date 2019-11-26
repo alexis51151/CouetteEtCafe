@@ -329,6 +329,22 @@
             <parameter key="roles" type="collection"/>
             <parameter key="items" type="collection"/>
           </parameter>
+          <parameter key="contact" type="collection">
+            <parameter key="label">Contact</parameter>
+            <parameter key="route">contact_new</parameter>
+            <parameter key="is_divider">false</parameter>
+            <parameter key="route_parameters" type="collection"/>
+            <parameter key="roles" type="collection"/>
+            <parameter key="items" type="collection"/>
+          </parameter>
+          <parameter key="panier" type="collection">
+            <parameter key="label">Panier</parameter>
+            <parameter key="route">panier</parameter>
+            <parameter key="is_divider">false</parameter>
+            <parameter key="route_parameters" type="collection"/>
+            <parameter key="roles" type="collection"/>
+            <parameter key="items" type="collection"/>
+          </parameter>
         </parameter>
       </parameter>
       <parameter key="anonymousaccount" type="collection">
@@ -395,6 +411,16 @@
             <parameter key="is_divider">false</parameter>
             <parameter key="route_parameters" type="collection"/>
             <parameter key="roles" type="collection"/>
+          </parameter>
+          <parameter key="contact" type="collection">
+            <parameter key="label">Messages</parameter>
+            <parameter key="route">contact_index</parameter>
+            <parameter key="roles" type="collection">
+              <parameter>ROLE_ADMIN</parameter>
+            </parameter>
+            <parameter key="is_divider">false</parameter>
+            <parameter key="route_parameters" type="collection"/>
+            <parameter key="items" type="collection"/>
           </parameter>
         </parameter>
       </parameter>
@@ -526,6 +552,13 @@
         <argument type="service" id=".service_locator.CDOTD6..App\Controller\ClientController"/>
       </call>
     </service>
+    <service id="App\Controller\ContactController" class="App\Controller\ContactController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator.CDOTD6..App\Controller\ContactController"/>
+      </call>
+    </service>
     <service id="App\Controller\GetRegionsController" class="App\Controller\GetRegionsController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
@@ -538,6 +571,13 @@
       <tag name="container.service_subscriber"/>
       <call method="setContainer">
         <argument type="service" id=".service_locator.CDOTD6..App\Controller\IndexPageController"/>
+      </call>
+    </service>
+    <service id="App\Controller\PanierController" class="App\Controller\PanierController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator.CDOTD6..App\Controller\PanierController"/>
       </call>
     </service>
     <service id="App\Controller\RegionAnnouncesController" class="App\Controller\RegionAnnouncesController" public="true" autowire="true" autoconfigure="true">
@@ -599,6 +639,9 @@
     <service id="App\Form\CommentaireType" class="App\Form\CommentaireType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
     </service>
+    <service id="App\Form\ContactType" class="App\Form\ContactType" autowire="true" autoconfigure="true">
+      <tag name="form.type"/>
+    </service>
     <service id="App\Form\RegionType" class="App\Form\RegionType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
     </service>
@@ -619,6 +662,10 @@
       <argument type="service" id="doctrine"/>
     </service>
     <service id="App\Repository\CommentaireRepository" class="App\Repository\CommentaireRepository" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
+    </service>
+    <service id="App\Repository\ContactRepository" class="App\Repository\ContactRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
     </service>
@@ -986,6 +1033,7 @@
       <argument type="collection">
         <argument>App\Form\ClientType</argument>
         <argument>App\Form\CommentaireType</argument>
+        <argument>App\Form\ContactType</argument>
         <argument>App\Form\RegionType</argument>
         <argument>App\Form\RegistrationFormType</argument>
         <argument>App\Form\ReservationType</argument>
@@ -1258,7 +1306,7 @@
       <argument type="service" id="form.registry"/>
     </service>
     <service id="form.extension" class="Symfony\Component\Form\Extension\DependencyInjection\DependencyInjectionExtension" public="false">
-      <argument type="service" id=".service_locator.90_t47c"/>
+      <argument type="service" id=".service_locator.4jHcS4U"/>
       <argument type="collection">
         <argument key="Symfony\Component\Form\Extension\Core\Type\FormType" type="iterator">
           <argument type="service" id="form.type_extension.form.transformation_failure_handling"/>
@@ -3230,7 +3278,7 @@
       <factory class="Doctrine\ORM\EntityManager" method="create"/>
     </service>
     <service id="doctrine.orm.container_repository_factory" class="Doctrine\Bundle\DoctrineBundle\Repository\ContainerRepositoryFactory" public="false">
-      <argument type="service" id=".service_locator.hip772N"/>
+      <argument type="service" id=".service_locator.vh4p3eW"/>
     </service>
     <service id="doctrine.orm.manager_configurator.abstract" class="Doctrine\Bundle\DoctrineBundle\ManagerConfigurator" abstract="true">
       <argument type="collection"/>
@@ -3676,6 +3724,27 @@
         <argument type="service" id=".security.request_matcher.O7Tsk.w"/>
         <argument type="collection">
           <argument>IS_AUTHENTICATED_ANONYMOUSLY</argument>
+        </argument>
+        <argument>null</argument>
+      </call>
+      <call method="add">
+        <argument type="service" id=".security.request_matcher.o9pxlOr"/>
+        <argument type="collection">
+          <argument>ROLE_USER</argument>
+        </argument>
+        <argument>null</argument>
+      </call>
+      <call method="add">
+        <argument type="service" id=".security.request_matcher.xMR4Hgz"/>
+        <argument type="collection">
+          <argument>ROLE_USER</argument>
+        </argument>
+        <argument>null</argument>
+      </call>
+      <call method="add">
+        <argument type="service" id=".security.request_matcher.UY0_j6t"/>
+        <argument type="collection">
+          <argument>ROLE_ADMIN</argument>
         </argument>
         <argument>null</argument>
       </call>
@@ -4130,6 +4199,15 @@
     </service>
     <service id=".security.request_matcher.O7Tsk.w" class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
       <argument>^/register</argument>
+    </service>
+    <service id=".security.request_matcher.o9pxlOr" class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
+      <argument>^/reservation</argument>
+    </service>
+    <service id=".security.request_matcher.xMR4Hgz" class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
+      <argument>^/unavaibility</argument>
+    </service>
+    <service id=".security.request_matcher.UY0_j6t" class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
+      <argument>^/client</argument>
     </service>
     <service id="security.command.user_password_encoder" class="Symfony\Bundle\SecurityBundle\Command\UserPasswordEncoderCommand" public="false">
       <tag name="console.command" command="security:encode-password"/>
@@ -5191,12 +5269,18 @@
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\ClientController" class="App\Controller\ClientController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\ClientController" class="App\Controller\ClientController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\ClientController" class="App\Controller\ClientController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\ContactController" class="App\Controller\ContactController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\ContactController" class="App\Controller\ContactController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\ContactController" class="App\Controller\ContactController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\GetRegionsController" class="App\Controller\GetRegionsController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\GetRegionsController" class="App\Controller\GetRegionsController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\GetRegionsController" class="App\Controller\GetRegionsController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\IndexPageController" class="App\Controller\IndexPageController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\IndexPageController" class="App\Controller\IndexPageController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\IndexPageController" class="App\Controller\IndexPageController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\PanierController" class="App\Controller\PanierController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\PanierController" class="App\Controller\PanierController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\PanierController" class="App\Controller\PanierController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\RegionAnnouncesController" class="App\Controller\RegionAnnouncesController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\RegionAnnouncesController" class="App\Controller\RegionAnnouncesController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\RegionAnnouncesController" class="App\Controller\RegionAnnouncesController" autowire="true" autoconfigure="true" abstract="true"/>
@@ -5224,6 +5308,8 @@
     <service id=".abstract.instanceof.App\Form\ClientType" class="App\Form\ClientType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\CommentaireType" class="App\Form\CommentaireType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\CommentaireType" class="App\Form\CommentaireType" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\ContactType" class="App\Form\ContactType" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Form\ContactType" class="App\Form\ContactType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\RegionType" class="App\Form\RegionType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\RegionType" class="App\Form\RegionType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\RegistrationFormType" class="App\Form\RegistrationFormType" autowire="true" abstract="true"/>
@@ -5238,6 +5324,8 @@
     <service id=".abstract.instanceof.App\Repository\ClientRepository" class="App\Repository\ClientRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\CommentaireRepository" class="App\Repository\CommentaireRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\CommentaireRepository" class="App\Repository\CommentaireRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\ContactRepository" class="App\Repository\ContactRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\ContactRepository" class="App\Repository\ContactRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\OwnerRepository" class="App\Repository\OwnerRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\OwnerRepository" class="App\Repository\OwnerRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\RegionRepository" class="App\Repository\RegionRepository" autowire="true" abstract="true"/>
@@ -5424,6 +5512,24 @@
         <argument key="client" type="service" id=".errored..service_locator.G3Dsh9s.App\Entity\Client"/>
       </argument>
     </service>
+    <service id=".service_locator.U5qUtgW" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="contactRepository" type="service" id="App\Repository\ContactRepository"/>
+      </argument>
+    </service>
+    <service id=".service_locator.p7yt7vT" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="contact" type="service" id=".errored..service_locator.p7yt7vT.App\Entity\Contact"/>
+      </argument>
+    </service>
+    <service id=".service_locator.v9Nl9gk" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="roomRepository" type="service" id="App\Repository\RoomRepository"/>
+      </argument>
+    </service>
     <service id=".service_locator.BPeAJFx" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -5456,10 +5562,11 @@
         <argument key="reservation" type="service" id=".errored..service_locator.eH1R0Zw.App\Entity\Reservation"/>
       </argument>
     </service>
-    <service id=".service_locator.v9Nl9gk" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.dtvQr._" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
-        <argument key="roomRepository" type="service" id="App\Repository\RoomRepository"/>
+        <argument key="reservation" type="service" id=".errored..service_locator.dtvQr._.App\Entity\Reservation"/>
+        <argument key="reservationRepository" type="service" id="App\Repository\ReservationRepository"/>
       </argument>
     </service>
     <service id=".service_locator.BkOHXLl" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
@@ -5486,20 +5593,32 @@
         <argument key="unavaibility" type="service" id=".errored..service_locator.KlwD.Ug.App\Entity\Unavaibility"/>
       </argument>
     </service>
-    <service id=".service_locator.IBinvOA" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.CyZPYfA" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="unavaibility" type="service" id=".errored..service_locator.CyZPYfA.App\Entity\Unavaibility"/>
+        <argument key="unavaibilityRepository" type="service" id="App\Repository\UnavaibilityRepository"/>
+      </argument>
+    </service>
+    <service id=".service_locator.CuCJwBc" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\ClientController::delete" type="service" id=".service_locator.G3Dsh9s"/>
         <argument key="App\Controller\ClientController::edit" type="service" id=".service_locator.G3Dsh9s"/>
         <argument key="App\Controller\ClientController::index" type="service" id=".service_locator.Jr97Qih"/>
         <argument key="App\Controller\ClientController::show" type="service" id=".service_locator.G3Dsh9s"/>
+        <argument key="App\Controller\ContactController::delete" type="service" id=".service_locator.p7yt7vT"/>
+        <argument key="App\Controller\ContactController::edit" type="service" id=".service_locator.p7yt7vT"/>
+        <argument key="App\Controller\ContactController::index" type="service" id=".service_locator.U5qUtgW"/>
+        <argument key="App\Controller\ContactController::show" type="service" id=".service_locator.p7yt7vT"/>
+        <argument key="App\Controller\PanierController::index" type="service" id=".service_locator.v9Nl9gk"/>
         <argument key="App\Controller\RegionController::delete" type="service" id=".service_locator.vIHt.Cx"/>
         <argument key="App\Controller\RegionController::edit" type="service" id=".service_locator.vIHt.Cx"/>
         <argument key="App\Controller\RegionController::index" type="service" id=".service_locator.BPeAJFx"/>
         <argument key="App\Controller\RegionController::show" type="service" id=".service_locator.vIHt.Cx"/>
         <argument key="App\Controller\RegistrationController::register" type="service" id=".service_locator.tSBldEr"/>
         <argument key="App\Controller\ReservationController::delete" type="service" id=".service_locator.eH1R0Zw"/>
-        <argument key="App\Controller\ReservationController::edit" type="service" id=".service_locator.eH1R0Zw"/>
+        <argument key="App\Controller\ReservationController::edit" type="service" id=".service_locator.dtvQr._"/>
         <argument key="App\Controller\ReservationController::index" type="service" id=".service_locator._yUaljH"/>
         <argument key="App\Controller\ReservationController::new" type="service" id=".service_locator._yUaljH"/>
         <argument key="App\Controller\ReservationController::show" type="service" id=".service_locator.eH1R0Zw"/>
@@ -5509,20 +5628,26 @@
         <argument key="App\Controller\RoomController::show" type="service" id=".service_locator.BkOHXLl"/>
         <argument key="App\Controller\SecurityController::login" type="service" id=".service_locator.EbLunuf"/>
         <argument key="App\Controller\UnavaibilityController::delete" type="service" id=".service_locator.KlwD.Ug"/>
-        <argument key="App\Controller\UnavaibilityController::edit" type="service" id=".service_locator.KlwD.Ug"/>
+        <argument key="App\Controller\UnavaibilityController::edit" type="service" id=".service_locator.CyZPYfA"/>
         <argument key="App\Controller\UnavaibilityController::index" type="service" id=".service_locator.uJdj73A"/>
+        <argument key="App\Controller\UnavaibilityController::new" type="service" id=".service_locator.uJdj73A"/>
         <argument key="App\Controller\UnavaibilityController::show" type="service" id=".service_locator.KlwD.Ug"/>
         <argument key="App\Controller\ClientController:delete" type="service" id=".service_locator.G3Dsh9s"/>
         <argument key="App\Controller\ClientController:edit" type="service" id=".service_locator.G3Dsh9s"/>
         <argument key="App\Controller\ClientController:index" type="service" id=".service_locator.Jr97Qih"/>
         <argument key="App\Controller\ClientController:show" type="service" id=".service_locator.G3Dsh9s"/>
+        <argument key="App\Controller\ContactController:delete" type="service" id=".service_locator.p7yt7vT"/>
+        <argument key="App\Controller\ContactController:edit" type="service" id=".service_locator.p7yt7vT"/>
+        <argument key="App\Controller\ContactController:index" type="service" id=".service_locator.U5qUtgW"/>
+        <argument key="App\Controller\ContactController:show" type="service" id=".service_locator.p7yt7vT"/>
+        <argument key="App\Controller\PanierController:index" type="service" id=".service_locator.v9Nl9gk"/>
         <argument key="App\Controller\RegionController:delete" type="service" id=".service_locator.vIHt.Cx"/>
         <argument key="App\Controller\RegionController:edit" type="service" id=".service_locator.vIHt.Cx"/>
         <argument key="App\Controller\RegionController:index" type="service" id=".service_locator.BPeAJFx"/>
         <argument key="App\Controller\RegionController:show" type="service" id=".service_locator.vIHt.Cx"/>
         <argument key="App\Controller\RegistrationController:register" type="service" id=".service_locator.tSBldEr"/>
         <argument key="App\Controller\ReservationController:delete" type="service" id=".service_locator.eH1R0Zw"/>
-        <argument key="App\Controller\ReservationController:edit" type="service" id=".service_locator.eH1R0Zw"/>
+        <argument key="App\Controller\ReservationController:edit" type="service" id=".service_locator.dtvQr._"/>
         <argument key="App\Controller\ReservationController:index" type="service" id=".service_locator._yUaljH"/>
         <argument key="App\Controller\ReservationController:new" type="service" id=".service_locator._yUaljH"/>
         <argument key="App\Controller\ReservationController:show" type="service" id=".service_locator.eH1R0Zw"/>
@@ -5532,8 +5657,9 @@
         <argument key="App\Controller\RoomController:show" type="service" id=".service_locator.BkOHXLl"/>
         <argument key="App\Controller\SecurityController:login" type="service" id=".service_locator.EbLunuf"/>
         <argument key="App\Controller\UnavaibilityController:delete" type="service" id=".service_locator.KlwD.Ug"/>
-        <argument key="App\Controller\UnavaibilityController:edit" type="service" id=".service_locator.KlwD.Ug"/>
+        <argument key="App\Controller\UnavaibilityController:edit" type="service" id=".service_locator.CyZPYfA"/>
         <argument key="App\Controller\UnavaibilityController:index" type="service" id=".service_locator.uJdj73A"/>
+        <argument key="App\Controller\UnavaibilityController:new" type="service" id=".service_locator.uJdj73A"/>
         <argument key="App\Controller\UnavaibilityController:show" type="service" id=".service_locator.KlwD.Ug"/>
       </argument>
     </service>
@@ -5596,11 +5722,12 @@
       <argument type="service" id="debug.argument_resolver.not_tagged_controller.inner"/>
       <argument type="service" id="debug.stopwatch"/>
     </service>
-    <service id=".service_locator.90_t47c" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.4jHcS4U" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Form\ClientType" type="service" id="App\Form\ClientType"/>
         <argument key="App\Form\CommentaireType" type="service" id="App\Form\CommentaireType"/>
+        <argument key="App\Form\ContactType" type="service" id="App\Form\ContactType"/>
         <argument key="App\Form\RegionType" type="service" id="App\Form\RegionType"/>
         <argument key="App\Form\RegistrationFormType" type="service" id="App\Form\RegistrationFormType"/>
         <argument key="App\Form\ReservationType" type="service" id="App\Form\ReservationType"/>
@@ -5620,11 +5747,12 @@
         <argument key="doctrine.orm.default_listeners.attach_entity_listeners" type="service" id="doctrine.orm.default_listeners.attach_entity_listeners"/>
       </argument>
     </service>
-    <service id=".service_locator.hip772N" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.vh4p3eW" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Repository\ClientRepository" type="service" id="App\Repository\ClientRepository"/>
         <argument key="App\Repository\CommentaireRepository" type="service" id="App\Repository\CommentaireRepository"/>
+        <argument key="App\Repository\ContactRepository" type="service" id="App\Repository\ContactRepository"/>
         <argument key="App\Repository\OwnerRepository" type="service" id="App\Repository\OwnerRepository"/>
         <argument key="App\Repository\RegionRepository" type="service" id="App\Repository\RegionRepository"/>
         <argument key="App\Repository\ReservationRepository" type="service" id="App\Repository\ReservationRepository"/>
@@ -5835,6 +5963,12 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.CDOTD6." method="withContext"/>
     </service>
+    <service id=".service_locator.CDOTD6..App\Controller\ContactController" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator_context" id="App\Controller\ContactController"/>
+      <argument>App\Controller\ContactController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.CDOTD6." method="withContext"/>
+    </service>
     <service id=".service_locator.CDOTD6..App\Controller\GetRegionsController" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator_context" id="App\Controller\GetRegionsController"/>
       <argument>App\Controller\GetRegionsController</argument>
@@ -5844,6 +5978,12 @@
     <service id=".service_locator.CDOTD6..App\Controller\IndexPageController" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator_context" id="App\Controller\IndexPageController"/>
       <argument>App\Controller\IndexPageController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.CDOTD6." method="withContext"/>
+    </service>
+    <service id=".service_locator.CDOTD6..App\Controller\PanierController" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator_context" id="App\Controller\PanierController"/>
+      <argument>App\Controller\PanierController</argument>
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.CDOTD6." method="withContext"/>
     </service>
@@ -5982,12 +6122,12 @@
       <argument type="service" id="security.token_storage"/>
     </service>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver" public="false">
-      <argument type="service" id=".service_locator.IBinvOA"/>
+      <argument type="service" id=".service_locator.CuCJwBc"/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver" public="false"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver" public="false"/>
     <service id="debug.argument_resolver.not_tagged_controller.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver" public="false">
-      <argument type="service" id=".service_locator.IBinvOA"/>
+      <argument type="service" id=".service_locator.CuCJwBc"/>
     </service>
     <service id=".service_locator.UwRI0uT" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
@@ -6012,10 +6152,13 @@
       </argument>
     </service>
     <service id=".errored..service_locator.G3Dsh9s.App\Entity\Client" class="App\Entity\Client"/>
+    <service id=".errored..service_locator.p7yt7vT.App\Entity\Contact" class="App\Entity\Contact"/>
     <service id=".errored..service_locator.vIHt.Cx.App\Entity\Region" class="App\Entity\Region"/>
     <service id=".errored..service_locator.eH1R0Zw.App\Entity\Reservation" class="App\Entity\Reservation"/>
+    <service id=".errored..service_locator.dtvQr._.App\Entity\Reservation" class="App\Entity\Reservation"/>
     <service id=".errored..service_locator.BkOHXLl.App\Entity\Room" class="App\Entity\Room"/>
     <service id=".errored..service_locator.KlwD.Ug.App\Entity\Unavaibility" class="App\Entity\Unavaibility"/>
+    <service id=".errored..service_locator.CyZPYfA.App\Entity\Unavaibility" class="App\Entity\Unavaibility"/>
     <service id="console.command_loader" class="Symfony\Component\Console\CommandLoader\ContainerCommandLoader" public="true">
       <argument type="service" id=".service_locator.1iOHDA4"/>
       <argument type="collection">
@@ -6395,7 +6538,7 @@
     <service id="Vich\UploaderBundle\Form\Type\VichImageType" alias="vich_uploader.form.type.image" public="false"/>
     <service id="Vich\UploaderBundle\Templating\Helper\UploaderHelper" alias="vich_uploader.templating.helper.uploader_helper" public="false"/>
     <service id="Vich\UploaderBundle\Twig\Extension\UploaderExtension" alias="vich_uploader.twig.extension.uploader" public="false"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.IBinvOA"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.CuCJwBc"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem" public="false"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="validator" alias="debug.validator" public="true"/>
