@@ -2478,14 +2478,6 @@
         <argument>2048</argument>
       </call>
       <call method="addListener">
-        <argument>console.command</argument>
-        <argument type="collection">
-          <argument type="service" id="debug.debug_handlers_listener"/>
-          <argument>configure</argument>
-        </argument>
-        <argument>2048</argument>
-      </call>
-      <call method="addListener">
         <argument>kernel.exception</argument>
         <argument type="collection">
           <argument type="service" id="debug.debug_handlers_listener"/>
@@ -5605,6 +5597,12 @@
         <argument key="room" type="service" id=".errored..service_locator.BkOHXLl.App\Entity\Room"/>
       </argument>
     </service>
+    <service id=".service_locator.A1au2Pt" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="comment" type="service" id=".errored..service_locator.A1au2Pt.App\Entity\Commentaire"/>
+      </argument>
+    </service>
     <service id=".service_locator.EbLunuf" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -5642,7 +5640,7 @@
         <argument key="unavaibilityRepository" type="service" id="App\Repository\UnavaibilityRepository"/>
       </argument>
     </service>
-    <service id=".service_locator.Y_BVGVy" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.J8jQyTu" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\ClientController::delete" type="service" id=".service_locator.G3Dsh9s"/>
@@ -5665,6 +5663,7 @@
         <argument key="App\Controller\ReservationController::new" type="service" id=".service_locator._yUaljH"/>
         <argument key="App\Controller\ReservationController::show" type="service" id=".service_locator.eH1R0Zw"/>
         <argument key="App\Controller\RoomController::delete" type="service" id=".service_locator.BkOHXLl"/>
+        <argument key="App\Controller\RoomController::delete_commentaire" type="service" id=".service_locator.A1au2Pt"/>
         <argument key="App\Controller\RoomController::edit" type="service" id=".service_locator.BkOHXLl"/>
         <argument key="App\Controller\RoomController::index" type="service" id=".service_locator.v9Nl9gk"/>
         <argument key="App\Controller\RoomController::show" type="service" id=".service_locator.BkOHXLl"/>
@@ -5698,6 +5697,7 @@
         <argument key="App\Controller\ReservationController:new" type="service" id=".service_locator._yUaljH"/>
         <argument key="App\Controller\ReservationController:show" type="service" id=".service_locator.eH1R0Zw"/>
         <argument key="App\Controller\RoomController:delete" type="service" id=".service_locator.BkOHXLl"/>
+        <argument key="App\Controller\RoomController:delete_commentaire" type="service" id=".service_locator.A1au2Pt"/>
         <argument key="App\Controller\RoomController:edit" type="service" id=".service_locator.BkOHXLl"/>
         <argument key="App\Controller\RoomController:index" type="service" id=".service_locator.v9Nl9gk"/>
         <argument key="App\Controller\RoomController:show" type="service" id=".service_locator.BkOHXLl"/>
@@ -6180,12 +6180,12 @@
       <argument type="service" id="security.token_storage"/>
     </service>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver" public="false">
-      <argument type="service" id=".service_locator.Y_BVGVy"/>
+      <argument type="service" id=".service_locator.J8jQyTu"/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver" public="false"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver" public="false"/>
     <service id="debug.argument_resolver.not_tagged_controller.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver" public="false">
-      <argument type="service" id=".service_locator.Y_BVGVy"/>
+      <argument type="service" id=".service_locator.J8jQyTu"/>
     </service>
     <service id=".service_locator.UwRI0uT" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
@@ -6215,6 +6215,7 @@
     <service id=".errored..service_locator.eH1R0Zw.App\Entity\Reservation" class="App\Entity\Reservation"/>
     <service id=".errored..service_locator.dtvQr._.App\Entity\Reservation" class="App\Entity\Reservation"/>
     <service id=".errored..service_locator.BkOHXLl.App\Entity\Room" class="App\Entity\Room"/>
+    <service id=".errored..service_locator.A1au2Pt.App\Entity\Commentaire" class="App\Entity\Commentaire"/>
     <service id=".errored..service_locator.w_gKeuO.App\Entity\UnavaibilityCollection" class="App\Entity\UnavaibilityCollection"/>
     <service id=".errored..service_locator.KlwD.Ug.App\Entity\Unavaibility" class="App\Entity\Unavaibility"/>
     <service id=".errored..service_locator.CyZPYfA.App\Entity\Unavaibility" class="App\Entity\Unavaibility"/>
@@ -6597,7 +6598,7 @@
     <service id="Vich\UploaderBundle\Form\Type\VichImageType" alias="vich_uploader.form.type.image" public="false"/>
     <service id="Vich\UploaderBundle\Templating\Helper\UploaderHelper" alias="vich_uploader.templating.helper.uploader_helper" public="false"/>
     <service id="Vich\UploaderBundle\Twig\Extension\UploaderExtension" alias="vich_uploader.twig.extension.uploader" public="false"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.Y_BVGVy"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.J8jQyTu"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem" public="false"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="validator" alias="debug.validator" public="true"/>

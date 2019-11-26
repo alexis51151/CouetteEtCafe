@@ -102,6 +102,9 @@
                                                         	{% endif %}
                                                         </div>
                                                         <p>{{ commentaire.contenu }}</p>
+                                                        {% if is_granted('ROLE_ADMIN') %}
+                                                        {{ include('room/delete_commentaire.html.twig') }}
+                                                       {% endif %}
                                                     </div>
                                                 </div>
                                             </div><!--/.media-->

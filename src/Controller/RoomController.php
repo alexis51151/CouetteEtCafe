@@ -107,6 +107,24 @@ class RoomController extends AbstractController
     }
 
     /**
+     * @Route("/delete_commentaire/{id}", name="delete_commentaire", methods={"DELETE"})
+     */
+    
+    public function delete_commentaire(Request $request, Commentaire $comment): Response 
+    {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Accès refusé.');
+        if ($this->isCsrfTokenValid('delete'.$comment->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($comment);
+            $entityManager->flush();
+        }
+        
+        return $this->redirectToRoute('room_index');
+        
+        
+    }
+
+    /**
      * @Route("/{id}/edit", name="room_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Room $room): Response

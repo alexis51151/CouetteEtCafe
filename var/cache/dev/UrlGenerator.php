@@ -43,6 +43,7 @@ return [
     'room_index' => [[], ['_controller' => 'App\\Controller\\RoomController::index'], [], [['text', '/room/']], [], []],
     'room_new' => [[], ['_controller' => 'App\\Controller\\RoomController::new'], [], [['text', '/room/new']], [], []],
     'room_show' => [['id'], ['_controller' => 'App\\Controller\\RoomController::show'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/room']], [], []],
+    'delete_commentaire' => [['id'], ['_controller' => 'App\\Controller\\RoomController::delete_commentaire'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/room/delete_commentaire']], [], []],
     'room_edit' => [['id'], ['_controller' => 'App\\Controller\\RoomController::edit'], [], [['text', '/edit'], ['variable', '/', '[^/]++', 'id', true], ['text', '/room']], [], []],
     'room_delete' => [['id'], ['_controller' => 'App\\Controller\\RoomController::delete'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/room']], [], []],
     'likes' => [['id_room', 'id_region'], ['_controller' => 'App\\Controller\\RoomController::addLike'], [], [['text', '/likes'], ['variable', '/', '[^/]++', 'id_region', true], ['variable', '/', '[^/]++', 'id_room', true], ['text', '/room']], [], []],

@@ -79,25 +79,28 @@ return [
                             .'|(*:389)'
                         .')'
                     .')'
-                    .'|oom/([^/]++)(?'
-                        .'|(*:414)'
-                        .'|/(?'
-                            .'|edit(*:430)'
-                            .'|([^/]++)/likes(*:452)'
+                    .'|oom/(?'
+                        .'|([^/]++)(*:414)'
+                        .'|delete_commentaire/([^/]++)(*:449)'
+                        .'|([^/]++)(?'
+                            .'|/(?'
+                                .'|edit(*:476)'
+                                .'|([^/]++)/likes(*:498)'
+                            .')'
+                            .'|(*:507)'
                         .')'
-                        .'|(*:461)'
                     .')'
                 .')'
                 .'|/unavaibility/(?'
                     .'|collection/([^/]++)(?'
-                        .'|(*:510)'
-                        .'|/edit(*:523)'
-                        .'|(*:531)'
+                        .'|(*:557)'
+                        .'|/edit(*:570)'
+                        .'|(*:578)'
                     .')'
                     .'|([^/]++)(?'
-                        .'|(*:551)'
-                        .'|/edit(*:564)'
-                        .'|(*:572)'
+                        .'|(*:598)'
+                        .'|/edit(*:611)'
+                        .'|(*:619)'
                     .')'
                 .')'
             .')/?$}sDu',
@@ -124,15 +127,16 @@ return [
         381 => [[['_route' => 'reservation_edit', '_controller' => 'App\\Controller\\ReservationController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
         389 => [[['_route' => 'reservation_delete', '_controller' => 'App\\Controller\\ReservationController::delete'], ['id'], ['DELETE' => 0], null, false, true, null]],
         414 => [[['_route' => 'room_show', '_controller' => 'App\\Controller\\RoomController::show'], ['id'], ['GET' => 0, 'POST' => 1], null, false, true, null]],
-        430 => [[['_route' => 'room_edit', '_controller' => 'App\\Controller\\RoomController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        452 => [[['_route' => 'likes', '_controller' => 'App\\Controller\\RoomController::addLike'], ['id_room', 'id_region'], null, null, false, false, null]],
-        461 => [[['_route' => 'room_delete', '_controller' => 'App\\Controller\\RoomController::delete'], ['id'], ['DELETE' => 0], null, false, true, null]],
-        510 => [[['_route' => 'unavaibility_collection_show', '_controller' => 'App\\Controller\\UnavaibilityCollectionController::show'], ['id'], ['GET' => 0], null, false, true, null]],
-        523 => [[['_route' => 'unavaibility_collection_edit', '_controller' => 'App\\Controller\\UnavaibilityCollectionController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        531 => [[['_route' => 'unavaibility_collection_delete', '_controller' => 'App\\Controller\\UnavaibilityCollectionController::delete'], ['id'], ['DELETE' => 0], null, false, true, null]],
-        551 => [[['_route' => 'unavaibility_show', '_controller' => 'App\\Controller\\UnavaibilityController::show'], ['id'], ['GET' => 0], null, false, true, null]],
-        564 => [[['_route' => 'unavaibility_edit', '_controller' => 'App\\Controller\\UnavaibilityController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        572 => [
+        449 => [[['_route' => 'delete_commentaire', '_controller' => 'App\\Controller\\RoomController::delete_commentaire'], ['id'], ['DELETE' => 0], null, false, true, null]],
+        476 => [[['_route' => 'room_edit', '_controller' => 'App\\Controller\\RoomController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        498 => [[['_route' => 'likes', '_controller' => 'App\\Controller\\RoomController::addLike'], ['id_room', 'id_region'], null, null, false, false, null]],
+        507 => [[['_route' => 'room_delete', '_controller' => 'App\\Controller\\RoomController::delete'], ['id'], ['DELETE' => 0], null, false, true, null]],
+        557 => [[['_route' => 'unavaibility_collection_show', '_controller' => 'App\\Controller\\UnavaibilityCollectionController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        570 => [[['_route' => 'unavaibility_collection_edit', '_controller' => 'App\\Controller\\UnavaibilityCollectionController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        578 => [[['_route' => 'unavaibility_collection_delete', '_controller' => 'App\\Controller\\UnavaibilityCollectionController::delete'], ['id'], ['DELETE' => 0], null, false, true, null]],
+        598 => [[['_route' => 'unavaibility_show', '_controller' => 'App\\Controller\\UnavaibilityController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        611 => [[['_route' => 'unavaibility_edit', '_controller' => 'App\\Controller\\UnavaibilityController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        619 => [
             [['_route' => 'unavaibility_delete', '_controller' => 'App\\Controller\\UnavaibilityController::delete'], ['id'], ['DELETE' => 0], null, false, true, null],
             [null, null, null, null, false, false, 0],
         ],
