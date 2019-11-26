@@ -114,7 +114,7 @@ class ReservationController extends AbstractController
     {
         $form = $this->createForm(ReservationType::class, $reservation);
         $form->handleRequest($request);
-        $user = $this-getUser();
+        $user = $this->getUser();
         if ($user != null && $user== $reservation->getClient()->getUser() && $form->isSubmitted() && $form->isValid()) {
             /* On va regarder si la réservation est compatible avec les réservations déjà faites pour la chambre */
             /* Condition de segments gauche->droite */

@@ -9,6 +9,7 @@ use App\Entity\Client;
 use App\Form\CommentaireType;
 use App\Form\RoomType;
 use App\Entity\Commentaire;
+use App\Repository\OwnerRepository;
 use App\Repository\RoomRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -41,14 +42,23 @@ class RoomController extends AbstractController
     /**
      * @Route("/new", name="room_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, OwnerRepository $ownerRepository): Response
     {
         $this->denyAccessUnlessGranted('ROLE_USER', null, 'Accès refusé, veuillez vous inscrire');
         $room = new Room();
         $form = $this->createForm(RoomType::class, $room);
         $form->handleRequest($request);
         $user = $this->getUser();
-        $room->setOwner($user->getOwner());
+        $owner = $ownerRepository->findBy(['user' => $user]);
+        if (empty($owner)) {
+            $owner = new Owner();
+            $owner->setUser($user);
+            $owner->addRoom($room);
+        }
+        else {
+            $owner->addRoom($room);
+        }
+        $room->setOwner($owner);
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($room);

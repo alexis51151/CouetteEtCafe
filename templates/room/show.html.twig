@@ -22,7 +22,11 @@
                                             </div>
                                             <div class="media-body">
                                                 <div class="media-heading">
-                                                    <strong>John</strong>
+                                                {% if room.owner.user.email is defined %}
+                                                    <strong>{{ room.owner.user.email }}</strong>
+                                                {% else %}
+                                                 	<strong> Anonyme</strong>
+                                                {% endif %}
                                                 </div>
                                                 <p>Humanity declared vicinity continue supplied no an. He hastened am no property exercise of. Dissimilar comparison no terminated devonshire no literature on. Say most yet head room such just easy.</p>
                                             </div>
